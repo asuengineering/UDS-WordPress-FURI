@@ -59,6 +59,7 @@ add_action( 'wp_enqueue_scripts', 'furi_child_theme_enqueue_styles' );
 
 require get_stylesheet_directory() . '/inc/custom-post-types.php';
 require get_stylesheet_directory() . '/inc/posts-to-posts.php';
+require get_stylesheet_directory() . '/inc/data-helpers.php';
 
 
 // Gravity Forms. Create participant_to_project connections after post submission.
