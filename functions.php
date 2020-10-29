@@ -12,8 +12,8 @@ function uds_wordpress_child_scripts() {
 	$css_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/css/child-theme.min.css' );
 	wp_enqueue_style( 'uds-wordpress-child-styles', get_stylesheet_directory_uri() . '/css/child-theme.min.css', array( 'uds-wordpress-styles' ), $css_child_version );
 
-	$js_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/js/child-theme.min.js' );
-	wp_enqueue_style( 'uds-wordpress-child-styles', get_stylesheet_directory_uri() . '/js/child-theme.min.js', array( 'jquery' ), $js_child_version );
+	$js_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/js/child-theme.js' );
+	wp_enqueue_script( 'uds-wordpress-child-script', get_stylesheet_directory_uri() . '/js/child-theme.js', array( 'jquery' ), $js_child_version );
 }
 
 
@@ -87,3 +87,35 @@ function create_project_connections( $entry, $form ) {
 	p2p_type( 'participants_to_projects' )->connect( $from, $to, array( 'date' => current_time( 'mysql' ) ) );
 
 }
+/**
+ * Prints inline styles for research project categories.
+ * Useful for color coding elements on the fly with a CSS class instead of inline styles.
+ * Produces classes in the pattern of ".theme-{$term->slug}-bg"
+ */
+function furiproject_research_category_colors() {
+
+	$output = '';
+
+	$terms = get_terms(
+		array(
+			'taxonomy'   => 'research_theme', // Swap in your custom taxonomy name
+			'hide_empty' => true,
+		)
+	);
+
+	// Loop through all terms with a foreach loop
+	foreach ( $terms as $term ) {
+		$bg_hexvalue = get_field( 'researchtheme_bg_color', $term );
+		$text_hexvalue = get_field( 'researchtheme_text_color', $term );
+		if ( ! empty( $bg_hexvalue ) ) {
+			$output .= '.theme-' . $term->slug . '-bg { background-color: ' . esc_attr( $bg_hexvalue ) . '; } ';
+			$output .= '.theme-' . $term->slug . '-text { color: ' . esc_attr( $text_hexvalue ) . '; } ';
+		}
+	}
+
+	if ( ! empty( $output ) ) {
+		wp_add_inline_style( 'uds-wordpress-child-styles', $output );
+	}
+
+}
+add_action( 'wp_enqueue_scripts', 'furiproject_research_category_colors' );

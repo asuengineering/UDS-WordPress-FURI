@@ -148,6 +148,48 @@ function asufse_register_symposium_date_taxonomy() {
 add_action( 'init', 'asufse_register_symposium_date_taxonomy', 0 );
 
 /**
+ * TAX: Symposium Group, for furiproject CPT
+ */
+function asufse_register_symposium_group_taxonomy() {
+
+	$labels = array(
+		'name'                       => _x( 'Symposium Groups', 'Taxonomy General Name', 'uds-wordpress-theme' ),
+		'singular_name'              => _x( 'Symposium Group', 'Taxonomy Singular Name', 'uds-wordpress-theme' ),
+		'menu_name'                  => __( 'Symposium Group', 'uds-wordpress-theme' ),
+		'all_items'                  => __( 'Symposium Groups', 'uds-wordpress-theme' ),
+		'parent_item'                => __( 'Parent Group', 'uds-wordpress-theme' ),
+		'parent_item_colon'          => __( 'Parent Group:', 'uds-wordpress-theme' ),
+		'new_item_name'              => __( 'New Group', 'uds-wordpress-theme' ),
+		'add_new_item'               => __( 'Add New Group', 'uds-wordpress-theme' ),
+		'edit_item'                  => __( 'Edit Group', 'uds-wordpress-theme' ),
+		'update_item'                => __( 'Update Group', 'uds-wordpress-theme' ),
+		'view_item'                  => __( 'View Group', 'uds-wordpress-theme' ),
+		'separate_items_with_commas' => __( 'Separate groups with commas', 'uds-wordpress-theme' ),
+		'add_or_remove_items'        => __( 'Add or remove groups', 'uds-wordpress-theme' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'uds-wordpress-theme' ),
+		'popular_items'              => __( 'Popular Groups', 'uds-wordpress-theme' ),
+		'search_items'               => __( 'Search Groups', 'uds-wordpress-theme' ),
+		'not_found'                  => __( 'Not Found', 'uds-wordpress-theme' ),
+		'no_terms'                   => __( 'No groups', 'uds-wordpress-theme' ),
+		'items_list'                 => __( 'Groups list', 'uds-wordpress-theme' ),
+		'items_list_navigation'      => __( 'Groups list navigation', 'uds-wordpress-theme' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => false,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => false,
+		'show_in_rest'               => true,
+	);
+	register_taxonomy( 'symposium_group', array( 'furiproject' ), $args );
+
+}
+add_action( 'init', 'asufse_register_symposium_group_taxonomy', 0 );
+
+/**
  * TAX: Presentation Type, for furiproject CPT
  */
 function aufse_register_presentation_type_taxonomy() {
