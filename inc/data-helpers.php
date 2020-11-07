@@ -120,3 +120,182 @@ function get_symposium_status_url ( $projectID ) {
 	return $button;
 
 }
+
+/** 
+ * Symposium Overview Function: Build Select Boxes from taxonomy data.
+ * See: https://css-tricks.com/getting-wordpress-term-results-that-are-relative-to-a-different-taxonomy/
+ */
+function get_all_project_tax_terms($args, $taxonomy, $label) {
+	$selectbox = '';
+	$projectids = get_posts($args);
+
+	$terms = wp_get_object_terms($projectids, $taxonomy, 'orderby=name&order=ASC&hide_empty=0');
+
+	// $terms = get_terms( $taxonomy, 'order=ASC&hide_empty=0' );
+	if (!empty($terms) && !is_wp_error($terms)) {
+		$selectbox .= '<select id="filter-' . $taxonomy . '" class="filter" multiple title="Select a ' . $label . '">';
+		foreach ($terms as $term) {
+			$selectbox .= '<option value=".' . $term->slug . '">' . $term->name . '</option>';
+		}
+		$selectbox .= '</select>';
+	}
+	return $selectbox;
+}
+
+/** 
+ * Mostly the same function as above but starts with IDs and not query args.
+ */
+function get_all_participant_tax_terms($ids, $taxonomy, $label) {
+
+	$terms = wp_get_object_terms($ids, $taxonomy, 'order=ASC');
+
+	// $terms = get_terms( $taxonomy, 'order=ASC&hide_empty=0' );
+	if (!empty($terms) && !is_wp_error($terms)) {
+		$selectbox .= '<select id="filter-' . $taxonomy . '" class="filter" multiple title="Select a ' . $label . '">';
+		foreach ($terms as $term) {
+			$selectbox .= '<option value=".' . $term->slug . '">' . $term->name . '</option>';
+		}
+		$selectbox .= '</select>';
+	}
+	return $selectbox;
+}
+
+/** 
+ * Produces radio buttons for any included project category.
+ */
+function get_research_theme_radios($args, $taxonomy, $label) {
+
+	$selectbox = '';
+	$projectids = get_posts($args);
+
+	$terms = wp_get_object_terms($projectids, $taxonomy, 'orderby=name&order=ASC&hide_empty=0');
+
+	if (!empty($terms) && !is_wp_error($terms)) {
+		$radio .= '<div class="form-check form-check-inline">';
+		$radio .= '<input class="form-check-input" type="radio" name="researchThemeRadio" id="theme-' . $term->slug . '" value="">';
+		$radio .= '<label class="form-check-label-disabled" for="theme-' . $term->slug . '">';
+		$radio .= '<img class="research-theme-icon" src="' . get_stylesheet_directory_uri() . '/img/Select-ALL-icon.png" alt="Select all icon, enabled" />';
+		$radio .= '</label>';
+		$radio .= '<label class="form-check-label-enabled" for="theme-' . $term->slug . '">';
+		$radio .= '<img class="research-theme-icon" src="' . get_stylesheet_directory_uri() . '/img/Select-ALL-icon-ACTIVE.png" alt="Select all icon, enabled" />';
+		$radio .= '</label>';
+		$radio .= '</div>';
+		foreach ($terms as $term) {
+
+			$themeicon = get_field( 'researchtheme_icon', $term );
+			$themeiconEnabled = get_field( 'researchtheme_icon_enabled', $term );
+
+			$radio .= '<div class="form-check form-check-inline">';
+			$radio .= '<input class="form-check-input" type="radio" name="researchThemeRadio" id="theme-' . $term->slug . '" value=".' . $term->slug . '">';
+			$radio .= '<label class="form-check-label-disabled" for="theme-' . $term->slug . '">';
+			$radio .= '<img class="research-theme-icon" src="' . esc_url( $themeicon['url'] ) . '" alt="' . esc_attr( $themeicon['alt'] ) . '" />';
+			$radio .= '</label>';
+			$radio .= '<label class="form-check-label-enabled" for="theme-' . $term->slug . '">';
+			$radio .= '<img class="research-theme-icon" src="' . esc_url( $themeiconEnabled['url'] ) . '" alt="' . esc_attr( $themeiconEnabled['alt'] ) . '" />';
+			$radio .= '</label>';
+			$radio .= '</div>';
+		}
+		// $selectbox .= '</select>';
+	}
+	return $radio;
+}
+
+/** 
+ * Produces radio buttons for any included project category.
+ */
+function get_project_type_radios($args, $taxonomy, $label) {
+
+	$selectbox = '';
+	$projectids = get_posts($args);
+
+	$terms = wp_get_object_terms($projectids, $taxonomy, 'orderby=name&order=ASC&hide_empty=0');
+
+	if (!empty($terms) && !is_wp_error($terms)) {
+		$radio .= '<div class="form-check">';
+		$radio .= '<input class="form-check-input" type="radio" name="presentationTypeRadio" id="presentation-' . $term->slug . '" value="">';
+		$radio .= '<label class="form-check-label" for="presentation-' . $term->slug . '">All programs</label>';
+		$radio .= '</div>';
+		foreach ($terms as $term) {
+			$radio .= '<div class="form-check">';
+			$radio .= '<input class="form-check-input" type="radio" name="presentationTypeRadio" id="presentation-' . $term->slug . '" value=".' . $term->slug . '">';
+			$radio .= '<label class="form-check-label" for="presentation-' . $term->slug . '">' . $term->name . '</label>';
+			$radio .= '</div>';
+		}
+		// $selectbox .= '</select>';
+	}
+	return $radio;
+}
+
+/** 
+ * Symposium Overview Function: Build Filter Item Classes from taxonomy info
+ */
+
+function asufse_symposium_tax_filteritem_classes() {
+
+	// Get post by post ID.
+	if (!$post = get_post()) {
+		return '';
+	}
+
+	// Get post type by post.
+	$post_type = $post->post_type;
+
+	// Get post type taxonomies.
+	$taxonomies = get_object_taxonomies($post_type, 'objects');
+
+	$out = array();
+
+	foreach ($taxonomies as $taxonomy_slug => $taxonomy) {
+
+		// Get the terms related to post.
+		$terms = get_the_terms($post->ID, $taxonomy_slug);
+
+		if (!empty($terms)) {
+			foreach ($terms as $term) {
+				$out[] = sprintf(
+					'%1$s ',
+					esc_html($term->slug)
+				);
+			}
+		}
+	}
+	return implode('', $out);
+}
+
+/**
+ * Build participant name.
+ */
+function furi_participant_name( $personID ) {
+	$first = get_field( '_participant_first_name', $personID );
+	$middle = get_field( '_participant_middle_name', $personID );
+	$last = get_field( '_participant_last_name', $personID );
+	$suffix = get_field( '_participant_suffix', $personID );
+
+	// Append spaces if not blank. Assume there's always a last name.
+	if ( ! empty( $first ) ) {
+		$first .= ' ';
+	}
+
+	if ( ! empty( $middle ) ) {
+		$middle .= ' ';
+	}
+
+	if ( ! empty( $suffix ) ) {
+		$suffix .= ' ';
+	}
+
+	return $first . $middle . $last . ' ' . $suffix;
+}
+
+// Term Meta for Faculty Mentors - Select Box Options
+function available_mentor_affiliations() {
+    return array(
+        'https://ssebe.engineering.asu.edu' => 'SSEBE',
+        'https://sbhse.engineering.asu.edu' => 'SBHSE',
+        'https://cidse.engineering.asu.edu' => 'CIDSE',
+        'https://ecee.engineering.asu.edu' => 'ECEE',
+        'https://semte.engineering.asu.edu' => 'SEMTE',
+        'https://poly.engineering.asd.edu' => 'Poly',
+        '' => 'Display none',
+    );
+}

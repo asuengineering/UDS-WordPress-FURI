@@ -61,7 +61,7 @@ X. single-participant
         }
 
         .project-icon img {
-            margin-top:3rem;
+            margin-top:2rem;
         }
 
         .cta-buttons {
@@ -75,21 +75,34 @@ X. single-participant
         }
 
     }
+}
 
-    #additional-projects,
-    #related-projects {
-        background-color: $uds-color-base-gray-2;
-        padding: 4rem 0;
-    }
+/*--------------------------------------------------------------
+X. Additional Project, Related Projects
+--------------------------------------------------------------*/
 
-    #additional-projects + #related-projects-title {
-        background-color: $uds-color-base-gray-2;
-    }
+#additional-projects,
+#related-projects {
+    background-color: $uds-color-base-gray-2;
+    padding: 4rem 0;
+}
+
+#additional-projects + #related-projects-title {
+    background-color: $uds-color-base-gray-2;
 }
 
 /*--------------------------------------------------------------
 X. Specality Cards
 --------------------------------------------------------------*/
+.card.card-hover {
+    &:hover {
+        cursor:auto;
+    }
+    &:active {
+        transform: scale(1.05);
+    }
+}
+
 
 .card-symposium {
     .card-header {
@@ -103,5 +116,199 @@ X. Specality Cards
             margin:0;
             font-weight:400;
         }
+    }
+}
+
+/*--------------------------------------------------------------
+X. Specality Cards
+--------------------------------------------------------------*/
+.page-template-symposium {
+
+    #page-wrapper {
+        margin-top: calc(2rem + 153px);
+    }
+
+    .card-symposium {
+        min-height:380px;
+        margin-bottom: 1.5rem;
+
+        .participant {
+            margin-bottom:4px;
+        }
+
+        .card-title, .card-text {
+            font-size:14px;
+            line-height:18px;
+        }
+    }
+
+    .above-filters h4 {
+        margin-top:.5rem;
+        margin-bottom:0;
+    }
+
+    .filter-container {
+        form {
+            margin-top:1rem;
+
+            &:first-child {
+                margin-top:0;
+            }
+        }
+
+        label {
+            display:block;
+        }
+
+        #presentation-type-filters {
+            .form-check label {
+                font-size: $uds-size-font-large;
+            }
+            .form-check-input {
+                margin-top: .5rem;
+            }
+        }
+
+        #research-theme-filters {
+            input {
+                display:none;
+
+                & ~ label.form-check-label-disabled {
+                    display:block;
+                }
+                & ~ label.form-check-label-enabled {
+                    display:none;
+                }
+            }
+            input:checked {
+                & ~ label.form-check-label-disabled {
+                    display:none;
+                }
+                & ~ label.form-check-label-enabled {
+                    display:block;
+                }
+            }
+
+            .research-theme-icon {
+                width:50px;
+                height:auto;
+            }
+        }
+
+        .bootstrap-select {
+            button.dropdown-toggle {
+                border-color: $uds-color-base-gray-7;
+                color: $uds-color-base-gray-7;
+
+                &.disabled {
+                    border-color: $uds-color-base-gray-3;
+                    color: $uds-color-base-gray-3;
+                }
+            }
+
+            button.bs-select-all {
+                display:none;
+            }
+
+            button.bs-deselect-all {
+                border-radius:400rem;
+            }
+
+            .dropdown-menu {
+
+                &.show {
+                    width:100%;
+                }
+
+                &.show li a span.text {
+                    word-wrap: break-word;
+                    white-space: normal;
+                    font-size:14px;
+                }
+
+                > .inner:focus {
+                    box-shadow: none !important;
+                }
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+X. Furi Project
+--------------------------------------------------------------*/
+.single-furiproject {
+    #page-wrapper {
+        margin-top:12rem;
+    }
+
+    #main-content {
+        margin-bottom:6rem;
+
+        .cta-buttons {
+            .btn + .btn {
+                margin-left:1rem;
+            }
+
+            svg {
+                margin-left: .5rem;
+            }
+        }
+    }
+
+    .theme-icon {
+        max-width:8rem;
+        float:right;
+    }
+
+    #secondary {
+        .card {
+            height:auto;
+            .card-img-top {
+                object-position:100% 20%;
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+X. Taxonomy Term Page: Faculty Mentor
+--------------------------------------------------------------*/
+.tax-faculty_mentor {
+    #page-wrapper {
+        margin-top:12rem;
+    }
+
+    #content {
+        margin-bottom:4rem;
+
+        .social-icons {
+            padding:0;
+            margin:0;
+
+            li {
+                list-style-type:none;
+                display:inline;
+                margin-left:1rem;
+                font-size:32px;
+            }
+
+            a:visited {
+                color:$uds-color-base-maroon;
+            }
+        }
+    }
+
+    .related-projects {
+        background-color: $uds-color-base-gray-2;
+        padding: 4rem 0;
+
+        .col-md-4 {
+            margin-bottom:2rem;
+        }
+    }
+
+    .related-projects + .section-head {
+        background-color: $uds-color-base-gray-2;
     }
 }
