@@ -17,22 +17,22 @@ $term = get_queried_object();
 
 			<div class="row">
                 <div class="col-md-12">
-                <h1 class="mentor-name"><?php echo $term->name; ?></h1>
+                    <h1 class="mentor-name"><?php echo $term->name; ?></h1>
 
-                <?php 
-                $affiliations = available_mentor_affiliations();
-                $affiliation = get_field('_mentor_affiliation', $term);
-                $affiliation_label = $affiliations[$affiliation];
+                    <?php 
+                    $affiliations = available_mentor_affiliations();
+                    $affiliation = get_field('_mentor_affiliation', $term);
+                    $affiliation_label = $affiliations[$affiliation];
 
-                $title = get_field('_mentor_title', $term);
+                    $title = get_field('_mentor_title', $term);
 
-                if (!empty($affiliation)) {
-                    $affiliationString = '<a href="' . $affiliation . '" target=_blank>' . $affiliation_label . '</a>';
-                }
+                    if (!empty($affiliation)) {
+                        $affiliationString = '<a href="' . $affiliation . '" target=_blank>' . $affiliation_label . '</a>';
+                    }
 
-                ?>
+                    ?>
 
-                <h3 class="mentor-info"><?php echo wp_kses_post($affiliationString); ?> | <?php echo esc_html($title); ?></h2>
+                    <h3 class="mentor-info"><?php echo wp_kses_post($affiliationString); ?> | <?php echo esc_html($title); ?></h2>
 
                 </div>
             </div>
