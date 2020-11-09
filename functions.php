@@ -1,9 +1,18 @@
 <?php
+/**
+ * UDS WordPress FURI child theme functions and definitions
+ *
+ * @package uds-wordpress-theme
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
 add_action( 'wp_enqueue_scripts', 'uds_wordpress_child_scripts' );
+/** 
+ * Enqueue theme assets.
+ */
 function uds_wordpress_child_scripts() {
 	// Get the theme data.
 	$the_theme     = wp_get_theme();
@@ -36,7 +45,7 @@ function furi_child_theme_enqueue_styles() {
 		if ( $template_name == 'symposium.php' ) {
 			wp_enqueue_style( 'bs-select', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/css/bootstrap-select.min.css', array(), null );
 			wp_enqueue_script( 'isotope-js', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), '', true );
-			wp_enqueue_script( 'bs-select-js', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/bootstrap-select.min.js', array( 'jquery' ), '', true );			
+			wp_enqueue_script( 'bs-select-js', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/bootstrap-select.min.js', array( 'jquery' ), '', true );
 			wp_enqueue_script( 'pitchfork-furi-symposium-js', get_stylesheet_directory_uri() . '/js/custom-symposium.js', array( 'jquery' ), $theme_version, true );
 		}
 	}

@@ -139,7 +139,7 @@ while ( have_posts() ) :
 						$researchtheme = wp_strip_all_tags( get_the_term_list( $post->ID, 'research_theme', '', ', ', '' ) );
 
 						$projectthemes = get_the_terms( $post->ID, 'research_theme' );
-						foreach ($projectthemes as $projecttheme) {
+						foreach ( $projectthemes as $projecttheme ) {
 							$themeicon = get_field( 'researchtheme_icon', $projecttheme );
 							echo '<div class="project-icon"><img class="img-fluid" src="' . esc_url( $themeicon['url'] ) . '" alt="' . esc_attr( $themeicon['alt'] ) . '" /></div>';
 						}
@@ -160,17 +160,17 @@ while ( have_posts() ) :
 						<p class="project-mentor"><strong>Mentor: </strong><?php echo wp_kses_post( get_the_term_list( $post->ID, 'faculty_mentor', '', ', ', '' ) ); ?></p>
 
 						<div class="cta-buttons">
-							<?php 
-								// The conference session button. 
-								echo wp_kses_post( get_symposium_status_url( $post->ID ) ); 
-								
+							<?php
+								// The conference session button.
+								echo wp_kses_post( get_symposium_status_url( $post->ID ) );
+
 								// Is there an uploaded research poster?
 								$poster = get_field( '_furiproject_poster', $post->ID );
-								if (! empty( $poster)) {
-									$postermarkup = '<a class="btn btn-maroon btn-poster" href="' . esc_url( $poster['url'] );
-									$postermarkup .= '" target="_blank">View the poster<span class="fas fa-external-link-alt"></span></a>';
-									echo $postermarkup;
-								}
+							if ( ! empty( $poster ) ) {
+								$postermarkup = '<a class="btn btn-maroon btn-poster" href="' . esc_url( $poster['url'] );
+								$postermarkup .= '" target="_blank">View the poster<span class="fas fa-external-link-alt"></span></a>';
+								echo wp_kses_post($postermarkup);
+							}
 							?>
 						</div>
 
@@ -261,7 +261,7 @@ while ( have_posts() ) :
 
 	endif;
 
-	get_template_part('templates/related-projects');
+	get_template_part( 'templates/related-projects' );
 
 	?>
 
