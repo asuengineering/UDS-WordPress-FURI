@@ -44,16 +44,15 @@ Thumbs.db
 # Node modules #
 ######################
 node_modules/*
+node_modules/@asu-design-system/*
 !node_modules/@asu-design-system/design-tokens/
 
 # Other compiled assets #
 ######################
 .sass-cache
 bower_components
-node_modules
 dist
 dist-product
 npm-debug.log
 /vendor/
-
 .phpcs-cache
