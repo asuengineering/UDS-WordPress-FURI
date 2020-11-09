@@ -1,6 +1,8 @@
 <?php
 /**
  * Related Projects. Pull three at random from currently displayed symposium, same topic.
+ *
+ * @package uds-wordpress-theme
  */
 
 $active = get_active_symposium_terms();

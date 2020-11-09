@@ -1,7 +1,8 @@
 <?php
-
 /**
  * Template Name: Symposium Archive
+ *
+ * @package uds-wordpress-theme
  */
 
 get_header();
@@ -53,7 +54,7 @@ get_header();
 
 					p2p_type( 'participants_to_projects' )->each_connected( $query );
 
-					// The Loop
+					// The Loop.
 					if ( $query->have_posts() ) {
 
 						$titleselect = '';
@@ -102,11 +103,11 @@ get_header();
 
 							endforeach;
 
-							wp_reset_postdata(); // set $post back to original post
+							wp_reset_postdata(); // Set $post back to original post.
 
 							// Output a single card with correct classes for filtering.
 							?>
-							<div class="col-md-4 grid-item <?php echo $project_classes . $participant_classes; ?>">
+							<div class="col-md-4 grid-item <?php echo esc_html( $project_classes . $participant_classes ); ?>">
 								<div class="card card-hover card-symposium">
 									<div class="card-header <?php echo esc_html( $projectclassname ); ?>">
 										<h4 class="participant"><?php echo esc_html( $relatedparticipant ); ?></h3>
@@ -131,13 +132,10 @@ get_header();
 							<?php
 
 						} // end while.
-					} else {
-						// no posts found.
 					}
-					/* Restore original Post Data */
+					// Restore original post data.
 					wp_reset_postdata();
 
-					// get_template_part( 'loop-templates/symposium', 'filter' );
 					?>
 				</div><!-- end #symposium-grid -->
 			</div><!-- end col-md-8 -->
@@ -147,7 +145,7 @@ get_header();
 					<h4 class="symposium-date">
 						<?php echo esc_html( get_active_symposium_names() ) . ' Symposium'; ?>
 					</h4>
-					<p><?php echo $query->found_posts; ?> projects</p>
+					<p><?php echo esc_html( $query->found_posts ); ?> projects</p>
 				</div>
 				<div class="filter-group">
 					<div class="filter-container">
@@ -155,40 +153,40 @@ get_header();
 						<form class="form-inline">
 							<!-- <label data-placeholder="Search for a Participant" for="filter-participant">Participant Name</label> -->
 							<select id="filter-participant" class="filter" multiple title="Select a participant.">
-								<?php echo $participantselect; ?>
+								<?php echo wp_kses_post( $participantselect ); ?>
 							</select>
 						</form>
 
 						<form class="form-inline">
 							<!-- <label for="filter-titles">Project Title</label> -->
 							<select id="filter-titles" class="filter" multiple title="Select a project.">
-								<?php echo $titleselect; ?>
+								<?php echo wp_kses_post( $titleselect ); ?>
 							</select>
 						</form>
 					   
 						<form class="form-inline">
 							<!-- <label for="filter-degree_program">Degree Program</label> -->
-							<?php echo get_all_participant_tax_terms( $participant_ids, 'degree_program', 'degree program.' ); ?>
+							<?php echo wp_kses_post( get_all_participant_tax_terms( $participant_ids, 'degree_program', 'degree program.' ) ); ?>
 						</form>
 						
 						<form class="form-inline">
 							<!-- <label for="filter-faculty_mentor">Faculty Mentor</label> -->
-							<?php echo get_all_project_tax_terms( $filterargs, 'faculty_mentor', 'faculty mentor.' ); ?>
+							<?php echo wp_kses_post( get_all_project_tax_terms( $filterargs, 'faculty_mentor', 'faculty mentor.' ) ); ?>
 						</form>
 						
 						<form class="form-inline">
 							<!-- <label for="filter-symposium_group">Symposium Group</label> -->
-							<?php echo get_all_project_tax_terms( $filterargs, 'symposium_group', 'symposium group.' ); ?>
+							<?php echo wp_kses_post( get_all_project_tax_terms( $filterargs, 'symposium_group', 'symposium group.' ) ); ?>
 						</form>
 
 						<form id="presentation-type-filters">
 							<label for="filter-presentation_type">Presentation Type</label>
-							<?php echo get_project_type_radios( $filterargs, 'presentation_type', 'Presentation Type' ); ?>
+							<?php echo wp_kses_post( get_project_type_radios( $filterargs, 'presentation_type', 'Presentation Type' ) ); ?>
 						</form>
 						
 						<form id="research-theme-filters">
 							<label for="filter-research_theme">Research Theme</label>
-							<?php echo get_research_theme_radios( $filterargs, 'research_theme', 'Research Theme' ); ?>
+							<?php echo wp_kses_post( get_research_theme_radios( $filterargs, 'research_theme', 'Research Theme' ) ); ?>
 						</form>
 
 					</div>

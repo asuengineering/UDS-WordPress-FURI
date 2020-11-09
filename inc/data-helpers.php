@@ -148,7 +148,7 @@ function get_all_project_tax_terms( $args, $taxonomy, $label ) {
 function get_all_participant_tax_terms( $ids, $taxonomy, $label ) {
 
 	$terms = wp_get_object_terms( $ids, $taxonomy, 'order=ASC' );
-
+	$selectbox = '';
 	// $terms = get_terms( $taxonomy, 'order=ASC&hide_empty=0' );
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 		$selectbox .= '<select id="filter-' . $taxonomy . '" class="filter" multiple title="Select a ' . $label . '">';
@@ -166,17 +166,18 @@ function get_all_participant_tax_terms( $ids, $taxonomy, $label ) {
 function get_research_theme_radios( $args, $taxonomy, $label ) {
 
 	$selectbox = '';
+	$radio = '';
 	$projectids = get_posts( $args );
 
 	$terms = wp_get_object_terms( $projectids, $taxonomy, 'orderby=name&order=ASC&hide_empty=0' );
 
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 		$radio .= '<div class="form-check form-check-inline">';
-		$radio .= '<input class="form-check-input" type="radio" name="researchThemeRadio" id="theme-' . $term->slug . '" value="">';
-		$radio .= '<label class="form-check-label-disabled" for="theme-' . $term->slug . '">';
+		$radio .= '<input class="form-check-input" type="radio" name="researchThemeRadio" id="theme-research_theme" value="">';
+		$radio .= '<label class="form-check-label-disabled" for="theme-research_theme">';
 		$radio .= '<img class="research-theme-icon" src="' . get_stylesheet_directory_uri() . '/img/Select-ALL-icon.png" alt="Select all icon, enabled" />';
 		$radio .= '</label>';
-		$radio .= '<label class="form-check-label-enabled" for="theme-' . $term->slug . '">';
+		$radio .= '<label class="form-check-label-enabled" for="theme-research_theme">';
 		$radio .= '<img class="research-theme-icon" src="' . get_stylesheet_directory_uri() . '/img/Select-ALL-icon-ACTIVE.png" alt="Select all icon, enabled" />';
 		$radio .= '</label>';
 		$radio .= '</div>';
@@ -209,11 +210,12 @@ function get_project_type_radios( $args, $taxonomy, $label ) {
 	$projectids = get_posts( $args );
 
 	$terms = wp_get_object_terms( $projectids, $taxonomy, 'orderby=name&order=ASC&hide_empty=0' );
+	$radio = '';
 
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 		$radio .= '<div class="form-check">';
-		$radio .= '<input class="form-check-input" type="radio" name="presentationTypeRadio" id="presentation-' . $term->slug . '" value="">';
-		$radio .= '<label class="form-check-label" for="presentation-' . $term->slug . '">All programs</label>';
+		$radio .= '<input class="form-check-input" type="radio" name="presentationTypeRadio" id="presentation-project_type" value="">';
+		$radio .= '<label class="form-check-label" for="presentation-project_type">All programs</label>';
 		$radio .= '</div>';
 		foreach ( $terms as $term ) {
 			$radio .= '<div class="form-check">';

@@ -2,7 +2,7 @@
 /**
  * The template for displaying results from a specific symposium date.
  * Used as an archive listing for all projects in the DB.
- * 
+ *
  * @package UDS-WordPress-FURI
  */
 

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'wp_enqueue_scripts', 'uds_wordpress_child_scripts' );
-/** 
+/**
  * Enqueue theme assets.
  */
 function uds_wordpress_child_scripts() {

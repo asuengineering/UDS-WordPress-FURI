@@ -169,7 +169,7 @@ while ( have_posts() ) :
 							if ( ! empty( $poster ) ) {
 								$postermarkup = '<a class="btn btn-maroon btn-poster" href="' . esc_url( $poster['url'] );
 								$postermarkup .= '" target="_blank">View the poster<span class="fas fa-external-link-alt"></span></a>';
-								echo wp_kses_post($postermarkup);
+								echo wp_kses_post( $postermarkup );
 							}
 							?>
 						</div>
