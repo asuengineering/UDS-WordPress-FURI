@@ -1,17 +1,21 @@
 /*
-Theme Name: ASU TwentyTwenty Child
+Theme Name: UDS-WordPress-FURI
 Theme URI: https://github.com/asuengineering/asu-twentytwenty-child
 Author: ASU Engineering
 Author URI: https://github.com/asuengineering
-Description: Child theme template for ASU TwentyTwenty
-Version: 0.1.0
+Description: A WordPress theme for the Fulton Undergraduate Research Initiative web site. A child theme of UDS WordPress. 
+Version: 1.0.0
 
-Template: asu-web-standards-2020-wordpress-theme
+Template: UDS-WordPress-Theme
 
-GitHub Theme URI: https://github.com/asuengineering/asu-twentytwenty-child
+GitHub Theme URI: https://github.com/asu-ke-web-services/UDS-WordPress-Child-Theme
 
 License: GNU GPL version 2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: asu-web-standards-child
+*/
 
+/*
+Just like the parent theme, this file is only used to identify the theme in WordPress.
+- This theme's compiled CSS runs as a dependancy to the parent theme's compiled CSS. 
+- The SASS source files for this child theme come configured to consume the UDS Bootstrap 4 variables from the parent.
 */

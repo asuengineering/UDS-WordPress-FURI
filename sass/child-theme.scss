@@ -1,5 +1,347 @@
 // Design tokens from ASU Boostrap library
-@import "../node_modules/@asu-design-system/design-tokens/build/scss/_variables"; 
+@import "../node_modules/@asu-design-system/design-tokens/build/scss/_variables";
+
+// Media queries that model those found in Boostrap 4
+@import "_media-queries";
+
+.section-head {
+    height:20px;
+    
+    h3 {
+      background-color: #222222;
+      color: #ffffff;
+      font-weight: 700;
+      display: inline-block;
+      padding: .5rem 1rem;
+      margin:0;
+      height:40px;
+    }
+}
+
+@include media-breakpoint-up($lg) {
+    .single-participant,
+    .single-furiproject,
+    .tax-faculty_mentor,
+    .tax-symposium_date,
+    .page-template-symposium {
+        #page-wrapper {
+            margin-top: calc(2rem + 153px);
+        }
+    }
+}
 
 
+/*--------------------------------------------------------------
+X. single-participant
+--------------------------------------------------------------*/
+.single-participant {
+    #main-content {
+        margin-bottom:4rem;
+    
+        .participant-name {
+            margin-bottom:.5rem;
+        }
+        
+        .participant-major {
+            margin-top:.5rem;
+            margin-bottom:.5rem;
+        }
+        
+        .hometown, 
+        .gradutation-date {
+            margin-bottom:0;
+        }
 
+        .project-mentor {
+            margin:2rem 0;
+        }
+
+        .participant-social {
+            margin:1rem 0 0 0;
+            padding:0;
+            font-size: 2rem;
+
+            li {
+                list-style-type: none;
+                display:inline;
+                margin-right:1rem;
+
+                a:visited {
+                    color: $uds-color-base-maroon;
+                }
+            }
+        }
+
+        .presentation-details {
+            margin-top:0;
+        }
+
+        .project-icon img {
+            margin-top:2rem;
+        }
+
+        .cta-buttons {
+            .btn + .btn {
+                margin-left:1rem;
+            }
+
+            svg {
+                margin-left: .5rem;
+            }
+        }
+
+    }
+}
+
+/*--------------------------------------------------------------
+X. Additional Project, Related Projects
+--------------------------------------------------------------*/
+
+#additional-projects,
+#related-projects {
+    background-color: $uds-color-base-gray-2;
+    padding: 4rem 0;
+}
+
+#additional-projects + #related-projects-title {
+    background-color: $uds-color-base-gray-2;
+}
+
+/*--------------------------------------------------------------
+X. Specality Cards
+--------------------------------------------------------------*/
+.card.card-hover {
+    &:hover {
+        cursor:auto;
+    }
+    &:active {
+        transform: scale(1.05);
+    }
+}
+
+
+.card-symposium {
+    .card-header {
+        padding-top: $uds-size-spacing-2;
+
+        .participant {
+            margin: 0 0 .5rem 0;
+        }
+
+        .major {
+            margin:0;
+            font-weight:400;
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+X. Specality Cards
+--------------------------------------------------------------*/
+.page-template-symposium {
+
+    .card-symposium {
+        min-height:380px;
+        margin-bottom: 1.5rem;
+
+        .participant {
+            margin-bottom:4px;
+        }
+
+        .card-title, .card-text {
+            font-size:14px;
+            line-height:18px;
+        }
+    }
+
+    .above-filters h4 {
+        margin-top:.5rem;
+        margin-bottom:0;
+    }
+
+    .filter-container {
+        form {
+            margin-top:1rem;
+
+            &:first-child {
+                margin-top:0;
+            }
+        }
+
+        label {
+            display:block;
+        }
+
+        #presentation-type-filters {
+            .form-check label {
+                font-size: $uds-size-font-large;
+            }
+            .form-check-input {
+                margin-top: .5rem;
+            }
+        }
+
+        #research-theme-filters {
+            input {
+                display:none;
+
+                & ~ label.form-check-label-disabled {
+                    display:block;
+                }
+                & ~ label.form-check-label-enabled {
+                    display:none;
+                }
+            }
+            input:checked {
+                & ~ label.form-check-label-disabled {
+                    display:none;
+                }
+                & ~ label.form-check-label-enabled {
+                    display:block;
+                }
+            }
+
+            .research-theme-icon {
+                width:50px;
+                height:auto;
+            }
+        }
+
+        .bootstrap-select {
+            button.dropdown-toggle {
+                border-color: $uds-color-base-gray-7;
+                color: $uds-color-base-gray-7;
+
+                &.disabled {
+                    border-color: $uds-color-base-gray-3;
+                    color: $uds-color-base-gray-3;
+                }
+            }
+
+            button.bs-select-all {
+                display:none;
+            }
+
+            button.bs-deselect-all {
+                border-radius:400rem;
+            }
+
+            .dropdown-menu {
+
+                &.show {
+                    width:100%;
+                }
+
+                &.show li a span.text {
+                    word-wrap: break-word;
+                    white-space: normal;
+                    font-size:14px;
+                }
+
+                > .inner:focus {
+                    box-shadow: none !important;
+                }
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+X. Furi Project
+--------------------------------------------------------------*/
+.single-furiproject {
+
+    #main-content {
+        margin-bottom:6rem;
+
+        .cta-buttons {
+            .btn + .btn {
+                margin-left:1rem;
+            }
+
+            svg {
+                margin-left: .5rem;
+            }
+        }
+    }
+
+    .theme-icon {
+        max-width:8rem;
+        float:right;
+    }
+
+    #secondary {
+        .card {
+            height:auto;
+            .card-img-top {
+                object-position:100% 20%;
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+X. Taxonomy Term Page: Faculty Mentor
+--------------------------------------------------------------*/
+.tax-faculty_mentor {
+
+    #content {
+        margin-bottom:4rem;
+
+        .social-icons {
+            padding:0;
+            margin:0;
+
+            li {
+                list-style-type:none;
+                display:inline;
+                margin-left:1rem;
+                font-size:32px;
+            }
+
+            a:visited {
+                color:$uds-color-base-maroon;
+            }
+        }
+    }
+
+    .related-projects {
+        background-color: $uds-color-base-gray-2;
+        padding: 4rem 0;
+
+        .col-md-4 {
+            margin-bottom:2rem;
+        }
+    }
+
+    .related-projects + .section-head {
+        background-color: $uds-color-base-gray-2;
+    }
+}
+
+/*--------------------------------------------------------------
+X. Taxonomy Term Page: Symposium Date
+--------------------------------------------------------------*/
+.tax-symposium_date {
+
+    #content {
+        margin-bottom:4rem;
+
+        .dataTables_wrapper {
+            .dataTables_info {
+                padding: 0.25em 0 0 0.5em;
+                width: 49%;
+                float: left;
+            }
+
+            .dataTables_filter input {
+                width: 300px;
+            }
+
+            table > thead > tr > th {
+                background-color: #8c1d40;
+                color: #ffffff;
+            }
+        }
+    }
+}

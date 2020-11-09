@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "description": "ASU Web Standards 2.0 WordPress Child Theme",
   "main": "index.js",
-  "repository": "git://github.com/asu-ke-web-services/asu-web-standards-2020-wordpress-child-theme.git",
+  "repository": "git://github.com/asu-ke-web-services/UDS-WordPress-Child-Theme.git",
   "bugs": {
-    "url": "https://github.com/asu-ke-web-services/asu-web-standards-2020-wordpress-child-theme/issues"
+    "url": "https://github.com/asu-ke-web-services/UDS-WordPress-Child-Theme/issues"
   },
   "scripts": {
     "build": "gulp compile",
@@ -22,9 +22,6 @@
     "bootstrap",
     "underscores"
   ],
-  "author": "The UnderStrap Authors (https://github.com/understrap/understrap/graphs/contributors)",
-  "license": "GPL-2.0",
-  "homepage": "https://understrap.com",
   "dependencies": {},
   "devDependencies": {
     "@asu-design-system/design-tokens": "dev",
