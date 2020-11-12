@@ -96,6 +96,15 @@ while ( have_posts() ) :
 					<?php echo esc_html( wp_strip_all_tags( get_the_term_list( $post->ID, 'graduation_date', '', ', ', '' ) ) ); ?>
 				</p>
 
+				<?php
+				$details = '';
+				$details = wp_strip_all_tags( get_the_term_list( $post->ID, 'participant_details', '', ', ', '' ) );
+				if ( $details ) {
+					echo '<p class="participant-details"><strong>Additional details: </strong>';
+					echo esc_html( $details );
+					echo '</p>';
+				}
+				?>
 
 			</div>
 

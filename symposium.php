@@ -153,14 +153,14 @@ get_header();
 						<form class="form-inline">
 							<!-- <label data-placeholder="Search for a Participant" for="filter-participant">Participant Name</label> -->
 							<select id="filter-participant" class="filter" multiple title="Select a participant.">
-								<?php echo wp_kses_post( $participantselect ); ?>
+								<?php echo $participantselect; ?>
 							</select>
 						</form>
 
 						<form class="form-inline">
 							<!-- <label for="filter-titles">Project Title</label> -->
 							<select id="filter-titles" class="filter" multiple title="Select a project.">
-								<?php echo wp_kses_post( $titleselect ); ?>
+								<?php echo $titleselect; ?>
 							</select>
 						</form>
 					   

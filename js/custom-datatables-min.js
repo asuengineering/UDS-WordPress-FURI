@@ -1,1 +1,0 @@
-jQuery(document).ready(function(l){l("body").hasClass("tax-symposium_date")&&l(".symposium-archive").dataTable({paging:!1,dom:"ift",columns:[{width:"40%"},null,null,null,null],scrollX:!0})});

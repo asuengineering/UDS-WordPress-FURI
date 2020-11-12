@@ -1,30 +1,6 @@
 // Custom JS file for FURI Symposium
 
 jQuery(document).ready(function ($) {
-    // Count-up numbers should be available on every page. Global footer element.
-    $('.counter').each(function () {
-        var $this = $(this),
-            countTo = $this.attr('data-count');
-
-        $({ countNum: $this.text() }).animate(
-            {
-                countNum: countTo,
-            },
-
-            {
-                duration: 8000,
-                easing: 'linear',
-                step: function () {
-                    $this.text(Math.floor(this.countNum));
-                },
-                complete: function () {
-                    $this.text(this.countNum);
-                    //alert('finished');
-                },
-            }
-        );
-    });
-
     function resetAllControls() {
         $('.filter-group .filter').val('').trigger('chosen:updated');
     }
@@ -145,12 +121,5 @@ jQuery(document).ready(function ($) {
 
             $('#symposium-grid').isotope({ filter: $filter });
         });
-
-        // 	// $filterString += $obj.join('').replace(/ /g, '');
-        // 	$researchRadio =
-        // 	$('input[name="researchThemeRadio"]:checked').val() || [];
-        // $presentationRadio =
-        // 	$('input[name="presentationTypeRadio"]:checked').val() || [];
-        // End body-class conditional
     }
 });

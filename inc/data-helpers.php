@@ -173,12 +173,12 @@ function get_research_theme_radios( $args, $taxonomy, $label ) {
 
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 		$radio .= '<div class="form-check form-check-inline">';
-		$radio .= '<input class="form-check-input" type="radio" name="researchThemeRadio" id="theme-research_theme" value="">';
-		$radio .= '<label class="form-check-label-disabled" for="theme-research_theme">';
+		$radio .= '<input class="form-check-input" type="radio" name="researchThemeRadio" id="theme-research_theme" value="" checked>';
+		$radio .= '<label class="form-check-label-disabled" for="theme-research_theme" data-toggle="tooltip" data-placement="top" title="All research themes">';
 		$radio .= '<img class="research-theme-icon" src="' . get_stylesheet_directory_uri() . '/img/Select-ALL-icon.png" alt="Select all icon, enabled" />';
 		$radio .= '</label>';
-		$radio .= '<label class="form-check-label-enabled" for="theme-research_theme">';
-		$radio .= '<img class="research-theme-icon" src="' . get_stylesheet_directory_uri() . '/img/Select-ALL-icon-ACTIVE.png" alt="Select all icon, enabled" />';
+		$radio .= '<label class="form-check-label-enabled" for="theme-research_theme" data-toggle="tooltip" data-placement="top" title="All research themes">';
+		$radio .= '<img class="research-theme-icon" src="' . get_stylesheet_directory_uri() . '/img/Select-ALL-icon-ACTIVE.png" alt="Select all icon, enabled"  />';
 		$radio .= '</label>';
 		$radio .= '</div>';
 		foreach ( $terms as $term ) {
@@ -188,10 +188,10 @@ function get_research_theme_radios( $args, $taxonomy, $label ) {
 
 			$radio .= '<div class="form-check form-check-inline">';
 			$radio .= '<input class="form-check-input" type="radio" name="researchThemeRadio" id="theme-' . $term->slug . '" value=".' . $term->slug . '">';
-			$radio .= '<label class="form-check-label-disabled" for="theme-' . $term->slug . '">';
+			$radio .= '<label class="form-check-label-disabled" for="theme-' . $term->slug . '" data-toggle="tooltip" data-placement="top" title="' . $term->name . '">';
 			$radio .= '<img class="research-theme-icon" src="' . esc_url( $themeicon['url'] ) . '" alt="' . esc_attr( $themeicon['alt'] ) . '" />';
 			$radio .= '</label>';
-			$radio .= '<label class="form-check-label-enabled" for="theme-' . $term->slug . '">';
+			$radio .= '<label class="form-check-label-enabled" for="theme-' . $term->slug . '" data-toggle="tooltip" data-placement="top" title="' . $term->name . '">';
 			$radio .= '<img class="research-theme-icon" src="' . esc_url( $themeiconEnabled['url'] ) . '" alt="' . esc_attr( $themeiconEnabled['alt'] ) . '" />';
 			$radio .= '</label>';
 			$radio .= '</div>';
@@ -214,7 +214,7 @@ function get_project_type_radios( $args, $taxonomy, $label ) {
 
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 		$radio .= '<div class="form-check">';
-		$radio .= '<input class="form-check-input" type="radio" name="presentationTypeRadio" id="presentation-project_type" value="">';
+		$radio .= '<input class="form-check-input" type="radio" name="presentationTypeRadio" id="presentation-project_type" value="" checked>';
 		$radio .= '<label class="form-check-label" for="presentation-project_type">All programs</label>';
 		$radio .= '</div>';
 		foreach ( $terms as $term ) {

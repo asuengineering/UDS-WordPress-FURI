@@ -35,24 +35,26 @@ function furi_child_theme_enqueue_styles() {
 	$the_theme = wp_get_theme();
 	$theme_version = $the_theme->get( 'Version' );
 
-	wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, false );
-
-	// Check for symposium page template and load more things.
+	// Check for page templates and load more things.
 	if ( is_page() ) {
 		global $wp_query;
 		$template_name = get_post_meta( $wp_query->post->ID, '_wp_page_template', true );
 
-		if ( $template_name == 'symposium.php' ) {
+		if ( 'symposium.php' == $template_name ) {
 			wp_enqueue_style( 'bs-select', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/css/bootstrap-select.min.css', array(), null );
 			wp_enqueue_script( 'isotope-js', 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', array(), '', true );
 			wp_enqueue_script( 'bs-select-js', 'https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/bootstrap-select.min.js', array( 'jquery' ), '', true );
-			wp_enqueue_script( 'pitchfork-furi-symposium-js', get_stylesheet_directory_uri() . '/js/custom-symposium.js', array( 'jquery' ), $theme_version, true );
+			wp_enqueue_script( 'furi-symposium-js', get_stylesheet_directory_uri() . '/js/custom-symposium.js', array( 'jquery' ), $theme_version, true );
+		}
+
+		if ( 'fullpage-about.php' == $template_name ) {
+			wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, true );
+			wp_enqueue_script( 'furi-about', get_stylesheet_directory_uri() . '/js/custom-charts.js', array( 'google-charts' ), $theme_version, true );
 		}
 	}
 
 	// Check for symposium-date archive pages and load DataTables JS.
 	if ( is_tax( 'symposium_date' ) ) {
-		// wp_enqueue_style('datatables', '//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css', array(), null);
 		wp_enqueue_style( 'datatables-bootstrap4', '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css', array(), null );
 		wp_enqueue_script( 'datatables-js', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array(), '', true );
 		wp_enqueue_script( 'datatables-bootstrap4-js', '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js', array(), '', true );
@@ -128,3 +130,12 @@ function furiproject_research_category_colors() {
 
 }
 add_action( 'wp_enqueue_scripts', 'furiproject_research_category_colors' );
+
+
+/** 
+ * Adds a section of content right above the global footer.
+ */
+function uds_furi_add_symposium_totals() {
+	get_template_part( 'templates/snapshot', 'footer' );
+}
+add_action( 'uds_wp_before_global_footer', 'uds_furi_add_symposium_totals' );

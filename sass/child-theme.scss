@@ -23,12 +23,67 @@
     .single-furiproject,
     .tax-faculty_mentor,
     .tax-symposium_date,
+    .page-template-fullpage-about {
+        #page-wrapper {
+            margin-top: calc(1rem + 153px);
+        }
+    }
+}
+
+@include media-breakpoint-up($lg) {
     .page-template-symposium {
         #page-wrapper {
             margin-top: calc(2rem + 153px);
         }
     }
 }
+
+/*--------------------------------------------------------------
+X. Snapshot Global
+--------------------------------------------------------------*/
+#snapshot-global,
+#snapshot-global-title {
+    display:none;
+}
+
+@include media-breakpoint-up($md) {
+    #snapshot-global-title {
+        display:block;
+    }
+
+    #snapshot-global {
+        display:block;
+        padding-top: 4em;
+        background-color: #c4c4c4;
+
+        .stat-package {
+            margin-bottom: 1.5em;
+            padding: 10px;
+            background-color: #d2d2d2;
+            h3 {
+                font-size: 1.75rem;
+                line-height: 0.95;
+                color: #222222;
+                font-weight: 700;
+                text-align: right;
+                margin-right: 20px;
+                span {
+                    display: block;
+                    color: #ffffff;
+                }
+            }
+            .counter {
+                font-size: 3.5rem;
+                line-height: 0.95;
+                color: #222222;
+                font-weight: 700;
+                align-self:center;
+                margin-left:1rem;
+            }
+        }
+    }
+}
+
 
 
 /*--------------------------------------------------------------
@@ -48,7 +103,7 @@ X. single-participant
         }
         
         .hometown, 
-        .gradutation-date {
+        .graduation-date {
             margin-bottom:0;
         }
 
@@ -341,6 +396,228 @@ X. Taxonomy Term Page: Symposium Date
             table > thead > tr > th {
                 background-color: #8c1d40;
                 color: #ffffff;
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+X. About Page
+--------------------------------------------------------------*/
+.page-template-fullpage-about {
+    #about-lead .container {
+        margin: 2rem auto 1rem auto;
+    }
+
+    #director-message {
+        background: url('../img/temp/FURI-FA17-Poster-Symposium-MAC1858a.jpg') top center no-repeat;
+        
+        .row-title {
+            padding-top:2rem;
+        }
+
+        .row-letter {
+            padding-top:32rem;
+            div[class^="col-"] {
+                padding:3rem 3rem 0 3rem;
+            }
+        }
+        
+        .row-signature {
+            div[class^="col-"] {
+                padding:1rem 3rem 0 3rem;
+            }
+            .signee {
+                span {
+                    font-weight:700;
+                    display:block;
+                }
+            }
+        }
+    }
+
+    #ira-message {
+        margin-top:8rem;
+
+        .container {
+            background: url('../img/temp/FSE-Spring19-maroon-convocation-JH-7052a.jpg') center top no-repeat;
+            
+        }
+
+        .row-title {
+            padding-top:2rem;
+        }
+
+        .row-message {
+            padding-top:40rem;
+            div[class^="col-"] {
+                background-color:#ffffff;
+                padding:3rem 3rem 0 3rem;
+
+                > p:first-of-type {
+                    margin-top:2rem;
+                }
+            }
+        }
+    }
+
+    #life-after-furi-title {
+        margin-top:4rem;
+        background-color: $uds-color-base-white;
+    }
+    
+    #life-after-furi {
+        margin: 3rem 0;
+        .col-wrap {
+            h4 {
+                display: none;
+            }
+            .intro {
+                position: relative;
+                width: inherit;
+            }
+
+            #donutchart {
+                display: none;
+            }
+
+            .distribution {
+                font-size: 3em;
+                font-weight: 700;
+
+                line-height: 1;
+                z-index: 20;
+
+                div {
+                    margin-left: 0;
+                    p {
+                        display: table-cell;
+                        font-size: 14px;
+                        background-color: #ffc627;
+                        color: #222222;
+                        padding: 5px;
+                    }
+                }
+            }
+        }
+    }
+
+    #furi-alumni {
+        background-color: #99e4ff; /* 80% saturated from ASU Blue. */
+        background-image: url("../img/amountain.png");
+        background-size: 55%;
+        background-position: 100% 108%;
+        background-repeat: no-repeat;
+        padding: 4rem 0;
+
+        .col-wrap {
+            margin-top: 1em;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 0.75em;
+        }
+
+        h4 {
+            margin: 1em 0 1.5em;
+        }
+    }
+
+    #snapshot-global-title {
+        background-color: transparent;
+        margin-top:-30px;
+    }
+}
+
+@include media-breakpoint-up($md) {
+    .page-template-fullpage-about {
+
+        #ira-message {
+            background-position: 50% -30%;
+            .row-message {
+                padding-top:6rem;
+
+                div[class^="col-"] {
+                    padding-bottom:2rem;
+                    margin-bottom:10rem;
+                    &:after {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        background-color: #ffc627;
+                        width: 1rem;
+                        top: 2rem;
+                        height: calc(100% - 4rem);
+                        right: -1rem;
+                    }
+                }
+            }
+        }
+
+        #life-after-furi {    
+            .col-wrap {
+                position: relative;
+    
+                .intro {
+                    position: absolute;
+                    width: 35%;
+                    right: 5px;
+                    top: 0;
+                    font-size: 14px;
+                    z-index: 20;
+                }
+    
+                h4 {
+                    font-size: 3em;
+                    font-weight: bold;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    left: 22%;
+                    display: block;
+                    line-height: 1;
+                    z-index: 20;
+    
+                    span {
+                        display: block;
+                        font-size: 6rem;
+                        line-height: 1;
+                    }
+                }
+
+                #donutchart {
+                    display:block;
+                }
+    
+                .distribution {
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+    
+                    font-size: 4em;
+                    font-weight: 700;
+    
+                    line-height: 1;
+                    z-index: 20;
+    
+                    div {
+                        margin-left: 0.75em;
+                        p {
+                            display: table-cell;
+                            font-size: 14px;
+                            background-color: #ffc627;
+                            color: #222222;
+                            padding: 5px;
+                        }
+                    }
+                }
+    
+                #donutchart {
+                    z-index: 10;
+                }
+            }
+    
+            #donutchart {
+                width: 100%;
+                min-height: 600px;
             }
         }
     }

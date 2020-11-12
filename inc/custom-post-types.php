@@ -415,3 +415,47 @@ function asufse_register_graduation_date_taxonomy() {
 
 }
 add_action( 'init', 'asufse_register_graduation_date_taxonomy', 0 );
+
+
+/**
+ * TAX: Participant Details for participant CPT
+ */
+function asufse_register_participant_details_taxonomy() {
+
+	$labels = array(
+		'name'                       => _x( 'Participant Details', 'Taxonomy General Name', 'uds-wordpress-theme' ),
+		'singular_name'              => _x( 'Participant Detail', 'Taxonomy Singular Name', 'uds-wordpress-theme' ),
+		'menu_name'                  => __( 'Participant Detail', 'uds-wordpress-theme' ),
+		'all_items'                  => __( 'Participant Details', 'uds-wordpress-theme' ),
+		'parent_item'                => __( 'Parent Detail', 'uds-wordpress-theme' ),
+		'parent_item_colon'          => __( 'Parent Detail:', 'uds-wordpress-theme' ),
+		'new_item_name'              => __( 'New Detail', 'uds-wordpress-theme' ),
+		'add_new_item'               => __( 'Add New Detail', 'uds-wordpress-theme' ),
+		'edit_item'                  => __( 'Edit Detail', 'uds-wordpress-theme' ),
+		'update_item'                => __( 'Update Detail', 'uds-wordpress-theme' ),
+		'view_item'                  => __( 'View Detail', 'uds-wordpress-theme' ),
+		'separate_items_with_commas' => __( 'Separate details with commas', 'uds-wordpress-theme' ),
+		'add_or_remove_items'        => __( 'Add or remove details', 'uds-wordpress-theme' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'uds-wordpress-theme' ),
+		'popular_items'              => __( 'Popular Details', 'uds-wordpress-theme' ),
+		'search_items'               => __( 'Search Details', 'uds-wordpress-theme' ),
+		'not_found'                  => __( 'Not Found', 'uds-wordpress-theme' ),
+		'no_terms'                   => __( 'No details', 'uds-wordpress-theme' ),
+		'items_list'                 => __( 'Details list', 'uds-wordpress-theme' ),
+		'items_list_navigation'      => __( 'Details list navigation', 'uds-wordpress-theme' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => false,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => false,
+		'show_in_rest'               => true,
+	);
+	register_taxonomy( 'participant_details', array( 'participant' ), $args );
+
+}
+add_action( 'init', 'asufse_register_participant_details_taxonomy', 0 );
+
