@@ -37,17 +37,17 @@ foreach ($presentations as $presentation) {
 }
 ?>
 
-<div class="section-head" id="snapshot-global-title">
+<section class="section-head" id="snapshot-global-title">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h3><span class="text-gold">FURI Symposium </span>Totals</h3>
+				<h3><span class="text-gold">FURI</span> Totals</h3>
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 
-<div class="wrapper" id="snapshot-global">
+<section class="wrapper" id="snapshot-global">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3">
@@ -102,4 +102,4 @@ foreach ($presentations as $presentation) {
 			</div>
 		</div>
 	</div>
-</div>
+</section>

@@ -51,6 +51,10 @@ function furi_child_theme_enqueue_styles() {
 			wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, true );
 			wp_enqueue_script( 'furi-about', get_stylesheet_directory_uri() . '/js/custom-charts.js', array( 'google-charts' ), $theme_version, true );
 		}
+
+		if ( 'fullpage-home.php' == $template_name ) {
+			wp_enqueue_style( 'animate', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
+		}
 	}
 
 	// Check for symposium-date archive pages and load DataTables JS.
@@ -120,7 +124,9 @@ function furiproject_research_category_colors() {
 		$text_hexvalue = get_field( 'researchtheme_text_color', $term );
 		if ( ! empty( $bg_hexvalue ) ) {
 			$output .= '.theme-' . $term->slug . '-bg { background-color: ' . esc_attr( $bg_hexvalue ) . '; } ';
+			$output .= '.theme-' . $term->slug . '-bg:hover { background-color: ' . esc_attr( $bg_hexvalue ) . ' !important; } ';
 			$output .= '.theme-' . $term->slug . '-text { color: ' . esc_attr( $text_hexvalue ) . '; } ';
+			$output .= '.theme-' . $term->slug . '-text:hover { color: ' . esc_attr( $text_hexvalue ) . ' !important; } ';
 		}
 	}
 

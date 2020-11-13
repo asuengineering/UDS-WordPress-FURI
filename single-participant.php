@@ -185,6 +185,65 @@ while ( have_posts() ) :
 
 						<?php
 
+						$featured_yn  = get_field( '_furiproject_featured', $post->ID );
+						$sponsored_yn = get_field( '_furiproject_sponsored', $post->ID );
+
+						if ( $featured_yn || $sponsored_yn ) {
+							// Let's close the current row and start a new one.
+							echo '</div></div><!-- end .col / .row -->';
+							echo '<div class="row row-featured">';
+
+							if ($featured_yn) {
+
+								$featured_content = get_field( '_furiproject_featured_text' );
+								if (! empty( $featured_content ) ) {
+									
+									echo '<div class="col-md-8">';								
+									echo '<h3><span class="highlight-gold">Featured project | ' . esc_html( $symposiumdate ) . '</span></h3>';
+									echo wp_kses_post( $featured_content );
+									echo '</div>';
+								}
+								
+								$featured_images = get_field( '_furiproject_featured_images' );
+								if (! empty( $featured_images ) ) {
+
+									echo '<div class="col-md-12">';
+									echo '<div class="d-md-flex flex-md-row">';
+									foreach( $featured_images as $image ):
+										?>
+										<a href="<?php echo esc_url($image['url']); ?>" class="featured-image" target="_blank">
+										<img src="<?php echo esc_url($image['sizes']['medium']); ?>" class="uds-img figure-img" alt="<?php echo esc_attr($image['alt']); ?>"></img>
+										</a>
+										<?php
+									endforeach;
+									echo '</div></div>';
+								}
+
+								$sponsored_content = get_field( '_furiproject_sponsored_text' );
+								if (! empty( $sponsored_content ) ) {
+									
+									echo '<div class="col-md-8">';								
+									echo '<h3><span class="highlight-gold">Sponsored project | ' . esc_html( $symposiumdate ) . '</span></h3>';
+									echo wp_kses_post( $sponsored_content );
+									echo '</div>';
+								}
+								
+								$sponsored_images = get_field( '_furiproject_sponsored_images' );
+								if (! empty( $sponsored_images ) ) {
+									echo '<div class="col-md-12">';
+									echo '<div class="d-md-flex flex-md-row">';
+									foreach( $sponsored_images as $image ):
+										?>
+										<a href="<?php echo esc_url($image['url']); ?>" class="featured-image" target="_blank">
+										<img src="<?php echo esc_url($image['sizes']['medium']); ?>" class="uds-img figure-img" alt="<?php echo esc_attr($image['alt']); ?>"></img>
+										</a>
+										<?php
+									endforeach;
+									echo '</div></div>';
+								}
+							}
+						}
+
 					endwhile;
 					wp_reset_postdata();
 				endif;

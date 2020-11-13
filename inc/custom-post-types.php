@@ -30,10 +30,6 @@ function asufse_register_furiproject_cpt() {
 		'search_items'          => __( 'Search Project', 'uds-wordpress-theme' ),
 		'not_found'             => __( 'Not found', 'uds-wordpress-theme' ),
 		'not_found_in_trash'    => __( 'Not found in Trash', 'uds-wordpress-theme' ),
-		'featured_image'        => __( 'Symposium Poster', 'uds-wordpress-theme' ),
-		'set_featured_image'    => __( 'Set Symposium Poster', 'uds-wordpress-theme' ),
-		'remove_featured_image' => __( 'Remove Symposium Poster', 'uds-wordpress-theme' ),
-		'use_featured_image'    => __( 'Use as Symposium Poster', 'uds-wordpress-theme' ),
 		'insert_into_item'      => __( 'Insert into project', 'uds-wordpress-theme' ),
 		'uploaded_to_this_item' => __( 'Uploaded to this project', 'uds-wordpress-theme' ),
 		'items_list'            => __( 'Projects list', 'uds-wordpress-theme' ),
@@ -272,6 +268,48 @@ function asufse_register_faculty_mentor_taxonomy() {
 
 }
 add_action( 'init', 'asufse_register_faculty_mentor_taxonomy', 0 );
+
+/**
+ * TAX: Faculty Mentor, for furiproject CPT
+ */
+function asufse_register_sponsored_research_taxonomy() {
+
+	$labels = array(
+		'name'                       => _x( 'Industry Sponsors', 'Taxonomy General Name', 'uds-wordpress-theme' ),
+		'singular_name'              => _x( 'Industry Sponsor', 'Taxonomy Singular Name', 'uds-wordpress-theme' ),
+		'menu_name'                  => __( 'Industry Sponsor', 'uds-wordpress-theme' ),
+		'all_items'                  => __( 'All Sponsors', 'uds-wordpress-theme' ),
+		'parent_item'                => __( 'Parent Sponsor', 'uds-wordpress-theme' ),
+		'parent_item_colon'          => __( 'Parent Sponsor:', 'uds-wordpress-theme' ),
+		'new_item_name'              => __( 'New Sponsor Name', 'uds-wordpress-theme' ),
+		'add_new_item'               => __( 'Add New Sponsor', 'uds-wordpress-theme' ),
+		'edit_item'                  => __( 'Edit Sponsor', 'uds-wordpress-theme' ),
+		'update_item'                => __( 'Update Sponsor', 'uds-wordpress-theme' ),
+		'view_item'                  => __( 'View Sponsor', 'uds-wordpress-theme' ),
+		'separate_items_with_commas' => __( 'Separate sponsors with commas', 'uds-wordpress-theme' ),
+		'add_or_remove_items'        => __( 'Add or remove sponsors', 'uds-wordpress-theme' ),
+		'choose_from_most_used'      => __( 'Choose from the most used', 'uds-wordpress-theme' ),
+		'popular_items'              => __( 'Popular Sponsors', 'uds-wordpress-theme' ),
+		'search_items'               => __( 'Search Sponsors', 'uds-wordpress-theme' ),
+		'not_found'                  => __( 'Not Found', 'uds-wordpress-theme' ),
+		'no_terms'                   => __( 'No sponsors', 'uds-wordpress-theme' ),
+		'items_list'                 => __( 'Sponsors list', 'uds-wordpress-theme' ),
+		'items_list_navigation'      => __( 'Sponsors list navigation', 'uds-wordpress-theme' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => false,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+		'show_in_rest'               => true,
+	);
+	register_taxonomy( 'industry_sponsor', array( 'furiproject' ), $args );
+
+}
+add_action( 'init', 'asufse_register_sponsored_research_taxonomy', 0 );
 
 /**
  * CPT: Symposium Participants (participant)

@@ -16,21 +16,7 @@ jQuery(document).ready(function ($) {
 
         $('#filter-participant').empty().append(participant_options);
 
-        var $multiOptions = {
-            actionsBox: true,
-            deselectAllText: 'Clear selection',
-            liveSearch: true,
-            maxOptions: 10,
-            style: '',
-            styleBase: 'form-control',
-            windowPadding: 180,
-            selectedTextFormat: 'count > 1',
-            width: '100%',
-        };
-
         var $singleOptions = {
-            actionsBox: true,
-            deselectAllText: 'Clear Selection',
             maxOptions: 10,
             style: '',
             styleBase: 'form-control',
@@ -39,8 +25,8 @@ jQuery(document).ready(function ($) {
             width: '100%',
         };
 
-        $('#filter-participant').selectpicker($multiOptions);
-        $('#filter-titles').selectpicker($multiOptions);
+        $('#filter-participant').selectpicker($singleOptions);
+        $('#filter-titles').selectpicker($singleOptions);
         $('#filter-degree_program').selectpicker($singleOptions);
         $('#filter-faculty_mentor').selectpicker($singleOptions);
         $('#filter-symposium_group').selectpicker($singleOptions);

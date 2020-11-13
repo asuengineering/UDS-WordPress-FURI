@@ -4,6 +4,22 @@
 // Media queries that model those found in Boostrap 4
 @import "_media-queries";
 
+/*--------------------------------------------------------------
+X. Baseline grid
+--------------------------------------------------------------*/
+
+#page {
+    > div {
+        max-width:1920px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/*--------------------------------------------------------------
+X. Project Starter
+--------------------------------------------------------------*/
+
 .section-head {
     height:20px;
     
@@ -38,6 +54,88 @@
     }
 }
 
+/*--------------------------------------------------------------
+X. Home
+--------------------------------------------------------------*/
+.page-template-fullpage-home {
+    .carousel {
+        .card-symposium {
+            position: absolute;
+            top:2rem;
+            right:4rem;
+            width:24rem;
+            height:auto;
+            animation-name: fadeInRight;
+            animation-duration: .65s;
+            animation-delay: 1.5s;
+        }
+        .featured-image {
+            animation-name: fadeInLeft;
+            animation-duration: .65s;
+            animation-delay: 1s;
+        }
+        .carousel-label {
+            position: absolute;
+            top: 1rem;
+            left:2rem;
+        }
+        .carousel-controls {
+            position:absolute;
+            bottom:0;
+            left:2rem;
+            text-align:left;
+
+            .carousel-indicators {
+                position:relative;
+                margin:1rem 0;
+                
+                li {
+                    background-color: $uds-color-base-gray-4;
+                }
+            }
+        }
+    }
+    #research-themes {
+        margin-top: 6rem;
+        padding-top:6rem;
+        padding-bottom: 6rem;
+        .row-header {
+            margin-bottom:2rem;
+        }
+        .container {
+            background-color:#ffffff;
+            padding:2rem;
+        }
+        .media {
+            margin-bottom:4rem;
+            img {
+                width:5rem;
+                height:auto;
+            }
+        }
+    }
+    #sponsored-students {
+        margin-top: 4rem;
+       margin-bottom: 4rem;
+    }
+}
+
+@include media-breakpoint-up($md) {
+    .page-template-fullpage-home {
+        
+        .carousel {
+            margin-top: 6rem;
+            margin-bottom:6rem;
+        }
+
+        #program-descriptions {
+            .col-md-4:nth-of-type(2) {
+                border-left: 1px solid $uds-color-base-gray-4;
+                border-right: 1px solid $uds-color-base-gray-4;
+            }
+        }
+    }
+}
 /*--------------------------------------------------------------
 X. Snapshot Global
 --------------------------------------------------------------*/
@@ -146,6 +244,25 @@ X. single-participant
         }
 
     }
+
+    .row-featured {
+        margin-top:1rem;
+
+        a.featured-image {
+            border: 1px solid #ffffff;
+            margin-right:1rem;
+            margin-top:1rem;
+            display: inline-flex;
+
+            &:last-child {
+                margin-right:none;
+            }
+
+            &:hover {
+                border-color: $uds-color-base-maroon;
+            }
+        }
+    }
 }
 
 /*--------------------------------------------------------------
@@ -191,13 +308,63 @@ X. Specality Cards
 }
 
 /*--------------------------------------------------------------
-X. Specality Cards
+X. Symposium Page
 --------------------------------------------------------------*/
 .page-template-symposium {
 
+    .card-featured-symposium {
+        position:relative;
+        margin-bottom:1.5rem;
+
+        .card-foldable {
+            padding-bottom:0;
+            border:0;
+        }
+
+        .card-symposium {
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            min-height:inherit;
+        }
+
+        .card-header {
+            padding:0;
+            position:relative;
+
+            a {
+                border-bottom:0;
+                text-decoration: none;
+
+                h4 {
+                    padding:1rem 2rem .25rem 2rem;
+                    margin-bottom:0;
+                }
+
+                h5 {
+                    padding:0 2rem 1rem 2rem;
+                }
+
+                svg {
+                    font-size: 30px;
+                    font-weight: 700;
+                    position: absolute;
+                    right: 1.5rem;
+                    top: 1.5rem;
+                    transition-duration: .4s;
+                }
+
+                &[aria-expanded="true"] svg {
+                    transform: rotate(180deg);
+                }
+            }
+        }
+    }
+
     .card-symposium {
-        min-height:380px;
         margin-bottom: 1.5rem;
+        min-height:24rem;
 
         .participant {
             margin-bottom:4px;
@@ -438,11 +605,7 @@ X. About Page
 
     #ira-message {
         margin-top:8rem;
-
-        .container {
-            background: url('../img/temp/FSE-Spring19-maroon-convocation-JH-7052a.jpg') center top no-repeat;
-            
-        }
+        background: url('../img/temp/FSE-Spring19-maroon-convocation-JH-7052a.jpg') center top no-repeat;
 
         .row-title {
             padding-top:2rem;

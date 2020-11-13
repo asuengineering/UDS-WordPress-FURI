@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Symposium Archive
+ * Template Name: Symposium
  *
  * @package uds-wordpress-theme
  */
@@ -85,6 +85,12 @@ get_header();
 							$projectimpact = get_field( '_furiproject_impact_statement', $post->ID );
 							$projectclassname = get_research_theme_class_names( $post->ID );
 
+							$featured_yn = get_field( '_furiproject_featured' );
+							$featured_thumb = '';
+							if (has_post_thumbnail( $post->ID ) ) {
+								$featured_thumb = get_the_post_thumbnail( $post->ID, 'large', array( 'class' => 'img-fluid featured' ) );
+							}
+							
 							// Get Connected particpant data and assign variables.
 							foreach ( $post->connected as $post ) :
 								setup_postdata( $post );
@@ -105,31 +111,68 @@ get_header();
 
 							wp_reset_postdata(); // Set $post back to original post.
 
-							// Output a single card with correct classes for filtering.
-							?>
-							<div class="col-md-4 grid-item <?php echo esc_html( $project_classes . $participant_classes ); ?>">
-								<div class="card card-hover card-symposium">
-									<div class="card-header <?php echo esc_html( $projectclassname ); ?>">
-										<h4 class="participant"><?php echo esc_html( $relatedparticipant ); ?></h3>
-										<h5 class="major"><?php echo esc_html( $major ); ?></h5>
-									</div>
-									<div class="card-body">
-										<h5 class="card-title">
-											<a href="<?php echo esc_url( $participantlink ); ?>" rel="bookmark">
-												<?php echo esc_html( $projecttitle ); ?>
-											</a>
-										</h5>
-										<p class="card-text"><?php echo esc_html( $projectimpact ); ?></p>
-										<p class="card-text project-mentor">
-											<strong>Mentor: </strong><?php echo wp_kses_post( $mentorlist ); ?>
-										</p>
-										<p class="card-text project-type">
-											<strong>Program: </strong><?php echo esc_html( $presentationtype ); ?>
-										</p>
+							// Output a single card with correct classes for filtering. Check for featured card format.
+							if ( ( $featured_yn ) && ( $featured_thumb ) ) {
+								?>
+								<div class="col-md-8 grid-item <?php echo esc_html( $project_classes . $participant_classes ); ?>">
+									<div class="card card-hover card-featured-symposium">
+										
+										<a href="<?php echo esc_url( $participantlink ); ?>" rel="bookmark">
+											<?php echo $featured_thumb; ?>
+										</a>
+										
+										<div class="card card-foldable card-symposium">
+											<div class="card-header <?php echo esc_html( $projectclassname ); ?>">
+												<a class="<?php echo esc_html( $projectclassname ); ?>" id="example-header-1" class="collapsed" data-toggle="collapse" href="#example-content-1" role="button" aria-expanded="false" aria-controls="example-content-1">
+													<h4 class="participant"><?php echo esc_html( $relatedparticipant ); ?></h3>
+													<h5 class="major"><?php echo esc_html( $major ); ?></h5>	
+													<span class="fas fa-chevron-up"></span>
+												</a>
+											</div>
+											<div id="example-content-1" class="card-body collapse" aria-labelledby="example-header-1">
+												<h5 class="card-title">
+													<a href="<?php echo esc_url( $participantlink ); ?>" rel="bookmark">
+														<?php echo esc_html( $projecttitle ); ?>
+													</a>
+												</h5>
+												<p class="card-text"><?php echo esc_html( $projectimpact ); ?></p>
+												<p class="card-text project-mentor">
+													<strong>Mentor: </strong><?php echo wp_kses_post( $mentorlist ); ?>
+												</p>
+												<p class="card-text project-type">
+													<strong>Program: </strong><?php echo esc_html( $presentationtype ); ?>
+												</p>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
-							<?php
+								<?php
+							} else {
+								?>
+								<div class="col-md-4 grid-item <?php echo esc_html( $project_classes . $participant_classes ); ?>">
+									<div class="card card-hover card-symposium">
+										<div class="card-header <?php echo esc_html( $projectclassname ); ?>">
+											<h4 class="participant"><?php echo esc_html( $relatedparticipant ); ?></h3>
+											<h5 class="major"><?php echo esc_html( $major ); ?></h5>
+										</div>
+										<div class="card-body">
+											<h5 class="card-title">
+												<a href="<?php echo esc_url( $participantlink ); ?>" rel="bookmark">
+													<?php echo esc_html( $projecttitle ); ?>
+												</a>
+											</h5>
+											<p class="card-text"><?php echo esc_html( $projectimpact ); ?></p>
+											<p class="card-text project-mentor">
+												<strong>Mentor: </strong><?php echo wp_kses_post( $mentorlist ); ?>
+											</p>
+											<p class="card-text project-type">
+												<strong>Program: </strong><?php echo esc_html( $presentationtype ); ?>
+											</p>
+										</div>
+									</div>
+								</div>
+								<?php
+							} // end featured_yn check.
 
 						} // end while.
 					}
