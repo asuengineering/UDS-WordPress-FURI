@@ -13,7 +13,7 @@ get_header();
 	<div class="container" id="main-content">
 		<div class="row">
 
-			<div class="col-lg-9 order-2">
+			<div class="col-lg-9 order-2" id="symposium-grid-col">
 				<div class="row" id="symposium-grid">
 
 					<?php
@@ -187,10 +187,11 @@ get_header();
 
 			<div class="col-lg-3 order-1">
 				<div class="above-filters">
-					<h4 class="symposium-date">
-						<?php the_title(); ?>
-					</h4>
-					<p><?php echo esc_html( $query->found_posts ); ?> projects</p>
+					<h4 class="symposium-date"><?php the_title(); ?></h4>
+					<p class="filter-count"><?php echo esc_html( $query->found_posts ); ?> projects</p>
+					<button id="filter-mobile-panel" class="btn btn-maroon btn-sm" value="shuffle">
+						<span class="fas fa-filter" title="Show/Hide mobile panel"></span>Filters
+					</button>
 				</div>
 				<div class="filter-group">
 					<div class="filter-container">
@@ -241,7 +242,7 @@ get_header();
 						</button>
 
 						<button id="filter-shuffle" class="btn btn-dark btn-sm" value="shuffle">
-						<i class="fas fa-random"></i>Shuffle
+							<span class="fas fa-random" title="Shuffle"></span>Shuffle
 						</button>
 					</div>
 				</div><!-- end .filter-group -->

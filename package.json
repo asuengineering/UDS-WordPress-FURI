@@ -22,7 +22,9 @@
     "bootstrap",
     "underscores"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "scotch-panels": "^1.0.3"
+  },
   "devDependencies": {
     "@asu-design-system/design-tokens": "dev",
     "@babel/core": "^7.11.1",

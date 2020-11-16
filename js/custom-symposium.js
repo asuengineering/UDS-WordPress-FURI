@@ -1,10 +1,6 @@
 // Custom JS file for FURI Symposium
 
 jQuery(document).ready(function ($) {
-    function resetAllControls() {
-        $('.filter-group .filter').val('').trigger('chosen:updated');
-    }
-
     if ($('body').hasClass('page-template-symposium')) {
         // Sort the participants names prior to initializing Chosen. Can't be done via WP Query.
         var participant_options = $('#filter-participant option');
@@ -15,6 +11,29 @@ jQuery(document).ready(function ($) {
         });
 
         $('#filter-participant').empty().append(participant_options);
+
+        // Scotch panel for mobile search.
+        // Is the open/close button visible on the screen? (Handled via media query.)
+        if ($('button#filter-mobile-panel').is(':visible')) {
+            // Build scotch panels mobile menu location.
+            $('#main-content').prepend('<div id="scotch-panel"></div>');
+            $('.filter-group').detach().prependTo('#scotch-panel');
+
+            $('button#filter-mobile-panel')
+                .detach()
+                .insertAfter('.navbar-toggler');
+
+            // Make the panel
+            $('#scotch-panel').scotchPanel({
+                containerSelector: '#main-content', // As a jQuery Selector
+                direction: 'right', // Make it toggle in from the left
+                duration: 300, // Speed in ms how fast you want it to be
+                transition: 'ease', // CSS3 transition type: linear, ease, ease-in, ease-out, ease-in-out, cubic-bezier(P1x,P1y,P2x,P2y)
+                clickSelector: '#filter-mobile-panel', // Enables toggling when clicking elements of this class
+                distanceX: '85%', // Size fo the toggle
+                enableEscapeKey: true, // Clicking Esc will close the panel
+            });
+        }
 
         var $singleOptions = {
             maxOptions: 10,
@@ -31,11 +50,14 @@ jQuery(document).ready(function ($) {
         $('#filter-faculty_mentor').selectpicker($singleOptions);
         $('#filter-symposium_group').selectpicker($singleOptions);
 
-        $('#symposium-grid').isotope({
+        var $grid = $('#symposium-grid').isotope({
             // options
             itemSelector: '.grid-item',
             layoutMode: 'fitRows',
         });
+
+        var iso = $grid.data('isotope');
+        var $filterCount = $('.filter-count');
 
         // Recalculate filter string on select box change.
         $('.filter-container select').on('change', function () {
@@ -105,6 +127,7 @@ jQuery(document).ready(function ($) {
             }
 
             $('#symposium-grid').isotope({ filter: $filter });
+            updateFilterCount();
         });
 
         // Shuffle. Resorts actively displayed collection of cards.
@@ -131,6 +154,22 @@ jQuery(document).ready(function ($) {
                 .prop('checked', true);
 
             $('#symposium-grid').isotope({ filter: '' });
+            updateFilterCount();
         });
+
+        // Text for "Showing XX of YY items."
+        function updateFilterCount() {
+            if (iso.filteredItems.length == iso.items.length) {
+                $filterCount.text(iso.items.length + ' projects');
+            } else {
+                $filterCount.text(
+                    'Displaying ' +
+                        iso.filteredItems.length +
+                        ' of a total of ' +
+                        iso.items.length +
+                        ' projects.'
+                );
+            }
+        }
     }
 });

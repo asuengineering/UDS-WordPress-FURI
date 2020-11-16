@@ -9,13 +9,22 @@
 
 .page-template-symposium {
 
-    .above-filters h4 {
-        margin-top:.5rem;
-        margin-bottom:0;
+    .above-filters {
+        h4 {
+            margin-top:.5rem;
+            margin-bottom:0;
+        }
     }
 
-    #sticky-wrapper {
-        top: calc(1rem + 97px); // Sticks only when the top menu is squished.
+    button#filter-mobile-panel {
+        display:none;
+        position: absolute;
+        top: 3.75rem;
+        right: 2.5rem;
+
+        svg {
+            margin-right:.5rem;
+        }
     }
 
     .filter-container {
@@ -123,6 +132,27 @@
 X. Mobile
 --------------------------------------------------------------*/
 
+@include media-breakpoint-down($md) {
+    .page-template-symposium {
+        button#filter-mobile-panel {
+            display:block;
+        }
+
+        #symposium-grid-col {
+            min-height:100vh;
+        }
+
+        .above-filters h4 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .card-symposium {
+            min-height:0;
+        }
+    }
+}
+
 /*--------------------------------------------------------------
 3. Symposium cards
 --------------------------------------------------------------*/
@@ -156,6 +186,11 @@ X. Mobile
         font-size:14px;
         line-height:18px;
     }
+
+    .card-title a {
+        text-decoration: underline;
+        font-size:18px;
+    }
 }
 
 /*--------------------------------------------------------------
@@ -166,7 +201,7 @@ X. Mobile
     position:relative;
     margin-bottom:1.5rem;
 
-    .card-foldable {
+    div.card-foldable {
         padding-bottom:0;
         border:0;
     }
@@ -221,5 +256,17 @@ X. Mobile
     }
     &:active {
         transform: scale(1.05);
+    }
+}
+
+/*--------------------------------------------------------------
+X. Scotch Panel
+--------------------------------------------------------------*/
+#scotch-panel {
+    padding:0 1rem;
+    
+    .filter-container {
+        border-left:1px solid $uds-color-base-gray-2;
+        padding:1rem;
     }
 }
