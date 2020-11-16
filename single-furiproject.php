@@ -111,7 +111,7 @@ get_header();
 				if ( $author->have_posts() ) :
 					?>
 
-					<h4><span class="highlight-gold">Submitted by</span></h4>
+					<h4><span class="highlight-gold">Student researcher</span></h4>
 					
 					<?php
 					while ( $author->have_posts() ) :

@@ -1,0 +1,130 @@
+/*--------------------------------------------------------------
+# Home Page
+
+1. Mobile
+2. Desktop
+--------------------------------------------------------------*/
+.page-template-fullpage-home {
+    .carousel {
+        .card-symposium {
+            position: absolute;
+            top:2rem;
+            right:4rem;
+            width:24rem;
+            height:auto;
+            animation-name: fadeInRight;
+            animation-duration: .65s;
+            animation-delay: 1.5s;
+        }
+        .featured-image {
+            animation-name: fadeInLeft;
+            animation-duration: .65s;
+            animation-delay: 1s;
+        }
+        .carousel-label {
+            position: absolute;
+            top: 1rem;
+            left:2rem;
+        }
+        .carousel-controls {
+            position:absolute;
+            bottom:0;
+            left:2rem;
+            text-align:left;
+
+            .carousel-indicators {
+                position:relative;
+                margin:1rem 0;
+                
+                li {
+                    background-color: $uds-color-base-gray-4;
+                }
+            }
+        }
+    }
+    #research-themes {
+        margin-top: 6rem;
+        padding-top:6rem;
+        padding-bottom: 6rem;
+        .row-header {
+            margin-bottom:2rem;
+        }
+        .container {
+            background-color:#ffffff;
+            padding:2rem;
+        }
+        .media {
+            margin-bottom:4rem;
+            img {
+                width:5rem;
+                height:auto;
+            }
+        }
+    }
+    #sponsored-students {
+        margin-top: 4rem;
+       margin-bottom: 4rem;
+    }
+}
+
+@include media-breakpoint-up($md) {
+    .page-template-fullpage-home {
+        
+        .carousel {
+            margin-top: 6rem;
+            margin-bottom:6rem;
+        }
+
+        #program-descriptions {
+            .col-md-4:nth-of-type(2) {
+                border-left: 1px solid $uds-color-base-gray-4;
+                border-right: 1px solid $uds-color-base-gray-4;
+            }
+        }
+    }
+}
+/*--------------------------------------------------------------
+X. Snapshot Global
+--------------------------------------------------------------*/
+#snapshot-global,
+#snapshot-global-title {
+    display:none;
+}
+
+@include media-breakpoint-up($md) {
+    #snapshot-global-title {
+        display:block;
+    }
+
+    #snapshot-global {
+        display:block;
+        padding-top: 4em;
+        background-color: #c4c4c4;
+
+        .stat-package {
+            margin-bottom: 1.5em;
+            padding: 10px;
+            background-color: #d2d2d2;
+            h3 {
+                font-size: 1.75rem;
+                line-height: 0.95;
+                color: #222222;
+                font-weight: 700;
+                text-align: right;
+                margin-right: 20px;
+                span {
+                    display: block;
+                    color: #ffffff;
+                }
+            }
+            .counter {
+                font-size: 3.5rem;
+                line-height: 0.95;
+                color: #222222;
+                font-weight: 700;
+                align-self:center;
+                margin-left:1rem;
+            }
+        }
+    }
+}

@@ -152,8 +152,10 @@ get_header();
 								<div class="col-md-4 grid-item <?php echo esc_html( $project_classes . $participant_classes ); ?>">
 									<div class="card card-hover card-symposium">
 										<div class="card-header <?php echo esc_html( $projectclassname ); ?>">
-											<h4 class="participant"><?php echo esc_html( $relatedparticipant ); ?></h3>
-											<h5 class="major"><?php echo esc_html( $major ); ?></h5>
+											<a class="<?php echo esc_html( $projectclassname ); ?>" href="<?php echo esc_url( $participantlink ); ?>" rel="bookmark">
+												<h4 class="participant"><?php echo esc_html( $relatedparticipant ); ?></h3>
+												<h5 class="major"><?php echo esc_html( $major ); ?></h5>
+											</a>
 										</div>
 										<div class="card-body">
 											<h5 class="card-title">
@@ -186,52 +188,61 @@ get_header();
 			<div class="col-lg-3 order-1">
 				<div class="above-filters">
 					<h4 class="symposium-date">
-						<?php echo esc_html( get_active_symposium_names() ) . ' Symposium'; ?>
+						<?php the_title(); ?>
 					</h4>
 					<p><?php echo esc_html( $query->found_posts ); ?> projects</p>
 				</div>
 				<div class="filter-group">
 					<div class="filter-container">
 						
+						<form id="research-theme-filters">
+							<label for="filter-research_theme">Research Themes</label>
+							<?php echo get_research_theme_radios( $filterargs, 'research_theme', 'Research Theme' ); ?>
+						</form>
+					
+						<form id="presentation-type-filters">
+							<label for="filter-presentation_type">Presentation Types</label>
+							<?php echo get_project_type_radios( $filterargs, 'presentation_type', 'Presentation Type' ); ?>
+						</form>
+
+						<label class="pt-2">Additional Filters</label>
+						
 						<form class="form-inline">
 							<!-- <label data-placeholder="Search for a Participant" for="filter-participant">Participant Name</label> -->
-							<select id="filter-participant" class="filter" multiple title="Select a participant.">
+							<select id="filter-participant" class="filter" multiple title="Select a participant">
 								<?php echo $participantselect; ?>
 							</select>
 						</form>
 
 						<form class="form-inline">
 							<!-- <label for="filter-titles">Project Title</label> -->
-							<select id="filter-titles" class="filter" multiple title="Select a project.">
+							<select id="filter-titles" class="filter" multiple title="Select a project">
 								<?php echo $titleselect; ?>
 							</select>
 						</form>
-					   
+					
 						<form class="form-inline">
 							<!-- <label for="filter-degree_program">Degree Program</label> -->
-							<?php echo get_all_participant_tax_terms( $participant_ids, 'degree_program', 'degree program.' ); ?>
+							<?php echo get_all_participant_tax_terms( $participant_ids, 'degree_program', 'degree program' ); ?>
 						</form>
 						
 						<form class="form-inline">
 							<!-- <label for="filter-faculty_mentor">Faculty Mentor</label> -->
-							<?php echo get_all_project_tax_terms( $filterargs, 'faculty_mentor', 'faculty mentor.' ); ?>
+							<?php echo get_all_project_tax_terms( $filterargs, 'faculty_mentor', 'faculty mentor' ); ?>
 						</form>
 						
 						<form class="form-inline">
 							<!-- <label for="filter-symposium_group">Symposium Group</label> -->
-							<?php echo get_all_project_tax_terms( $filterargs, 'symposium_group', 'symposium group.' ); ?>
+							<?php echo get_all_project_tax_terms( $filterargs, 'symposium_group', 'symposium group' ); ?>
 						</form>
 
-						<form id="presentation-type-filters">
-							<label for="filter-presentation_type">Presentation Type</label>
-							<?php echo get_project_type_radios( $filterargs, 'presentation_type', 'Presentation Type' ); ?>
-						</form>
-						
-						<form id="research-theme-filters">
-							<label for="filter-research_theme">Research Theme</label>
-							<?php echo get_research_theme_radios( $filterargs, 'research_theme', 'Research Theme' ); ?>
-						</form>
+						<button id="filter-reset" class="btn btn-dark btn-sm" type="reset" value="reset">
+							<span class="fas fa-undo" title="Reset filters"></span>Reset
+						</button>
 
+						<button id="filter-shuffle" class="btn btn-dark btn-sm" value="shuffle">
+						<i class="fas fa-random"></i>Shuffle
+						</button>
 					</div>
 				</div><!-- end .filter-group -->
 			</div><!-- end .col -->

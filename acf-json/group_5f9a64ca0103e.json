@@ -1,0 +1,40 @@
+{
+    "key": "group_5f9a64ca0103e",
+    "title": "Symposium Group",
+    "fields": [
+        {
+            "key": "field_5f9a64d9b21eb",
+            "label": "Conference URL",
+            "name": "symposiumgroup_conference_URL",
+            "type": "url",
+            "instructions": "Link to Zoom or other conference software.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "taxonomy",
+                "operator": "==",
+                "value": "symposium_group"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1605429900
+}

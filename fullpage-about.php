@@ -84,7 +84,7 @@ while ( have_posts() ) {
                         </div>
                     </div>
                     <div class="row row-message">
-                        <div class="col-md-4 offset-md-7">
+                        <div class="col-md-4 offset-md-8">
 
                             <blockquote class="ws2-element-gold ws2-element-style ws2-element-spacing-entity">
                                 <p>I strongly beleive that you cannot have a great city without a great school of engineering.</p>

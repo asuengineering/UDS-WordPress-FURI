@@ -98,11 +98,11 @@ $term = get_queried_object();
 					<?php
 
 					echo the_archive_description();
-					echo '<p><strong>Total sponsored projects: </strong> ' . $wp_query->post_count . '</p>';
+					echo '<p><strong>Total mentored projects: </strong> ' . $wp_query->post_count . '</p>';
 
 					$mentor_isearch = get_field( '_mentor_isearch', $term );
 					if ( ! empty( $mentor_isearch ) ) {
-						echo '<a class="btn btn-maroon mentor-isearch" href="' . $mentor_isearch . '">iSearch</a>';
+						echo '<a class="btn btn-maroon mentor-isearch" href="' . $mentor_isearch . '" target="_blank">iSearch</a>';
 					}
 					?>
 

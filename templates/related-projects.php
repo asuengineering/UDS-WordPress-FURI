@@ -32,7 +32,8 @@ if ( $relatedprojects->have_posts() ) :
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<h3>More projects from the <?php echo esc_html( get_active_symposium_names() ); ?> symposium</h3>
+					<!-- <h3>More projects from the + echo esc_html( get_active_symposium_names() ); + symposium</h3> -->
+					<h3>More projects from the current symposium</h3>
 				</div>
 			</div>
 		</div>

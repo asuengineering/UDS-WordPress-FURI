@@ -23,8 +23,11 @@ function uds_wordpress_child_scripts() {
 
 	$js_child_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . '/js/child-theme.js' );
 	wp_enqueue_script( 'uds-wordpress-child-script', get_stylesheet_directory_uri() . '/js/child-theme.js', array( 'jquery' ), $js_child_version );
+	
+	// Load Font Awesome 5, from our kit.
+	wp_dequeue_script( 'uds-wordpress-fa-scripts' );
+	wp_enqueue_script( 'uds-furi-fontawesome-pro', 'https://kit.fontawesome.com/3fdebab6fc.js', array(), null, true );
 }
-
 
 /**
  * Enqueue scripts and styles.
@@ -123,9 +126,9 @@ function furiproject_research_category_colors() {
 		$bg_hexvalue = get_field( 'researchtheme_bg_color', $term );
 		$text_hexvalue = get_field( 'researchtheme_text_color', $term );
 		if ( ! empty( $bg_hexvalue ) ) {
-			$output .= '.theme-' . $term->slug . '-bg { background-color: ' . esc_attr( $bg_hexvalue ) . '; } ';
+			$output .= '.theme-' . $term->slug . '-bg { background-color: ' . esc_attr( $bg_hexvalue ) . ' !important; } ';
 			$output .= '.theme-' . $term->slug . '-bg:hover { background-color: ' . esc_attr( $bg_hexvalue ) . ' !important; } ';
-			$output .= '.theme-' . $term->slug . '-text { color: ' . esc_attr( $text_hexvalue ) . '; } ';
+			$output .= '.theme-' . $term->slug . '-text, .theme-' . $term->slug . ':visited { color: ' . esc_attr( $text_hexvalue ) . ' !important; } ';
 			$output .= '.theme-' . $term->slug . '-text:hover { color: ' . esc_attr( $text_hexvalue ) . ' !important; } ';
 		}
 	}

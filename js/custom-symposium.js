@@ -89,7 +89,6 @@ jQuery(document).ready(function ($) {
                 'input[name="presentationTypeRadio"]:checked'
             ).val();
             $filter = $research + $presentation;
-            console.log($filter);
 
             // Did the most recent change result in an empty filter?
             if (!$filter) {
@@ -106,6 +105,32 @@ jQuery(document).ready(function ($) {
             }
 
             $('#symposium-grid').isotope({ filter: $filter });
+        });
+
+        // Shuffle. Resorts actively displayed collection of cards.
+        $('#filter-shuffle').on('click', function () {
+            $('#symposium-grid').isotope('shuffle');
+        });
+
+        // Reset all filters.
+        $('#filter-reset').on('click', function () {
+            // Enable and reset all of the select boxes.
+            $('.filter-container select')
+                .val('')
+                .prop('disabled', false)
+                .selectpicker('refresh');
+
+            // Enable the radio buttons, set to first option on each.
+            $('input[name="researchThemeRadio"]')
+                .prop('disabled', false)
+                .filter('[value=""]')
+                .prop('checked', true);
+            $('input[name="presentationTypeRadio"]')
+                .prop('disabled', false)
+                .filter('[value=""]')
+                .prop('checked', true);
+
+            $('#symposium-grid').isotope({ filter: '' });
         });
     }
 });

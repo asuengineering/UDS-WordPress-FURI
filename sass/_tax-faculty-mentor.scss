@@ -1,0 +1,40 @@
+/*--------------------------------------------------------------
+Taxonomy Term Page: Faculty Mentor
+
+1. Desktop
+--------------------------------------------------------------*/
+.tax-faculty_mentor {
+
+    #content {
+        margin-bottom:4rem;
+
+        .social-icons {
+            padding:0;
+            margin:0;
+
+            li {
+                list-style-type:none;
+                display:inline;
+                margin-left:1rem;
+                font-size:32px;
+            }
+
+            a:visited {
+                color:$uds-color-base-maroon;
+            }
+        }
+    }
+
+    .related-projects {
+        background-color: $uds-color-base-gray-2;
+        padding: 4rem 0;
+
+        .col-md-4 {
+            margin-bottom:2rem;
+        }
+    }
+
+    .related-projects + .section-head {
+        background-color: $uds-color-base-gray-2;
+    }
+}
