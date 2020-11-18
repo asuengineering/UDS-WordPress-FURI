@@ -63,23 +63,73 @@
     }
     #sponsored-students {
         margin-top: 4rem;
-       margin-bottom: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    #snapshot-global-title,
+    #snapshot-global {
+        display:none;
     }
 }
 
 @include media-breakpoint-up($md) {
     .page-template-fullpage-home {
-        
         .carousel {
             margin-top: 6rem;
             margin-bottom:6rem;
         }
 
         #program-descriptions {
-            .col-md-4:nth-of-type(2) {
-                border-left: 1px solid $uds-color-base-gray-4;
-                border-right: 1px solid $uds-color-base-gray-4;
+            div[class*="col"] {
+                padding:1rem;
             }
+        }
+    }
+}
+
+@include media-breakpoint-down($md) {
+    .page-template-fullpage-home {
+        #featured-projects {
+            display:none;
+        }
+
+        #program-descriptions {
+            margin-top:4rem;
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+X. Current Snapshot
+--------------------------------------------------------------*/
+#current-snapshot {
+    display:block;
+    margin-top: 4em;
+    padding-top: 2em;
+    border-top:1px solid $uds-color-base-gray-4;
+
+    .stat-package {
+        margin-bottom: 1.5em;
+        padding: 10px;
+        h3 {
+            font-size: 1.75rem;
+            line-height: 0.95;
+            color: $uds-color-base-gray-7;
+            font-weight: 700;
+            text-align: right;
+            margin-right: 20px;
+            span {
+                display: block;
+                color: $uds-color-base-gold;
+            }
+        }
+        .counter {
+            font-size: 3.5rem;
+            line-height: 0.95;
+            color: $uds-color-base-gray-7;
+            font-weight: 700;
+            align-self:center;
+            margin-left:1rem;
         }
     }
 }
@@ -99,16 +149,16 @@ X. Snapshot Global
     #snapshot-global {
         display:block;
         padding-top: 4em;
-        background-color: #c4c4c4;
+        background-color: $uds-color-base-gray-2;
 
         .stat-package {
             margin-bottom: 1.5em;
             padding: 10px;
-            background-color: #d2d2d2;
+            background-color: $uds-color-base-gray-4;
             h3 {
                 font-size: 1.75rem;
                 line-height: 0.95;
-                color: #222222;
+                color: $uds-color-base-gray-7;
                 font-weight: 700;
                 text-align: right;
                 margin-right: 20px;
@@ -120,10 +170,66 @@ X. Snapshot Global
             .counter {
                 font-size: 3.5rem;
                 line-height: 0.95;
-                color: #222222;
+                color: $uds-color-base-gray-7;
                 font-weight: 700;
                 align-self:center;
                 margin-left:1rem;
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+X. Media Text features
+--------------------------------------------------------------*/
+#uds-media-text {
+    .photo-wrap {
+        position:relative;
+        margin-top:1rem;
+
+        &:after {
+            height: 1rem;
+            width: calc(100% - 40%);
+            position:absolute;
+            top:-1rem;
+            left:20%;
+            background-color: $uds-color-base-gold;
+        }
+    }
+    .col-text {
+        margin:-2rem 1rem 0 1rem;
+
+        .quote-wrap {
+            padding:2rem;
+            background-color:#ffffff;
+            border: 1px solid $uds-color-base-gold;
+        }
+    }
+}
+
+@include media-breakpoint-up($md) {
+    #uds-media-text {
+        .photo-wrap {
+            margin-left:1rem;
+
+            &:after {
+                content: '';
+                width: 1rem;
+                height: calc(100% - 8em);
+                position:absolute;
+                top:4rem;
+                left:-1rem;
+                background-color: $uds-color-base-gold;
+            }
+        }
+        .col-text {
+            margin-left:-10rem;
+            margin-top:2rem;
+
+            .quote-wrap {
+                padding:3rem;
+                background-color:#ffffff;
+                border: 1px solid $uds-color-base-gold;
             }
         }
     }

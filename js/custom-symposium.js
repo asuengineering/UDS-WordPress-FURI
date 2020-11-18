@@ -2,7 +2,7 @@
 
 jQuery(document).ready(function ($) {
     if ($('body').hasClass('page-template-symposium')) {
-        // Sort the participants names prior to initializing Chosen. Can't be done via WP Query.
+        // Sort the participants names prior to initializing fancy select box.
         var participant_options = $('#filter-participant option');
         participant_options.sort(function (a, b) {
             if (a.text > b.text) return 1;
@@ -10,7 +10,16 @@ jQuery(document).ready(function ($) {
             else return 0;
         });
 
+        // Sort the project names as well.
+        var title_options = $('#filter-titles option');
+        title_options.sort(function (a, b) {
+            if (a.text > b.text) return 1;
+            else if (a.text < b.text) return -1;
+            else return 0;
+        });
+
         $('#filter-participant').empty().append(participant_options);
+        $('#filter-titles').empty().append(title_options);
 
         // Scotch panel for mobile search.
         // Is the open/close button visible on the screen? (Handled via media query.)
@@ -22,6 +31,10 @@ jQuery(document).ready(function ($) {
             $('button#filter-mobile-panel')
                 .detach()
                 .insertAfter('.navbar-toggler');
+
+            $('#header-main .navbar-container .title .subdomain-name').text(
+                'FURI Symposium'
+            );
 
             // Make the panel
             $('#scotch-panel').scotchPanel({

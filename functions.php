@@ -58,6 +58,8 @@ function furi_child_theme_enqueue_styles() {
 
 		if ( 'fullpage-home.php' == $template_name ) {
 			wp_enqueue_style( 'animate', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
+			wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, true );
+			wp_enqueue_script( 'furi-about', get_stylesheet_directory_uri() . '/js/custom-charts.js', array( 'google-charts' ), $theme_version, true );
 		}
 	}
 

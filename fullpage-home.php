@@ -34,7 +34,7 @@ function furi_participant_location_details() {
 $term_ids = get_active_symposium_terms();
 $args = array(
     'post_type' => 'furiproject',
-    'posts_per_page' => 3,
+    'posts_per_page' => -1,
     'tax_query' => array(
         array(
             'taxonomy' => 'symposium_date',
@@ -62,9 +62,9 @@ $args = array(
 
         <div class="row">
             <div class="col">
-
+                
                 <div id="featured-projects" class="carousel carousel-animation slide" data-ride="carousel" data-interval="10000">
-
+                    <h2>Featured students</h2>
                     <div class="carousel-inner">
 
                         <?php
@@ -145,8 +145,6 @@ $args = array(
                         ?>
                     </div><!-- end .carousel-inner -->
 
-                    <h3 class="carousel-label"><span class="highlight-black">Featured students</h3>
-
                     <div class="carousel-controls">
                         <button type="button" class="btn btn-circle btn-circle-alt-white" href="#featured-projects" data-slide="prev">
                             <i class="fas fa-chevron-left"></i>
@@ -168,20 +166,77 @@ $args = array(
             </div><!-- end .col -->
 
         </div><!-- end .row -->
+    </div><!-- .container --> 
 
-        <div class="row" id="program-descriptions">
-            <div class="col-md-4 pr-md-2">
+    <div class="container" id="program-descriptions">
+        <div class="row">
+            <div class="col-md-6">
                 <h4>Fulton Undergraduate Research Initiative</h4>
                 <p>The Fulton Undergraduate Research Initiative enhances an undergraduate student’s engineering experience and technical education by providing hands-on lab experience, independent and thesis-based research, and travel to national conferences.</p>
             </div>
-            <div class="col-md-4 px-md-4">
+            <div class="col-md-6">
                 <h4>Master’s Opportunity for Research in Engineering</h4>
                 <p>The Master’s Opportunity for Research in Engineering is designed to enrich a graduate student’s engineering and technical graduate curriculum with hands-on lab experience and independent and thesis-based research.</p>
             </div>
-            <div class="col-md-4 pl-md-4">
+            <div class="col-md-6">
                 <h4>Grand Challenges Scholars Program</h4>
                 <p>The Fulton Schools Grand Challenges Scholars Program combines innovative curriculum and cutting-edge research experiences into an intellectual fusion that spans academic disciplines and includes entrepreneurial, global and service learning opportunities. Students in GCSP conduct research in a grand challenges theme and are invited to present their research at the FURI Symposium.</p>
             </div>
+            <div class="col-md-6">
+                <h4>KEEN Student Mini Grants</h4>
+                <p>Students who apply curiosity and connections to create extraordinary value for stakeholders are supported by KEEN Student Mini Grants, funded by the ASU Kern Project. Their projects can be part of student organization activities, group research or individual work that exemplifies an entrepreneurial-minded approach. These students are invited to present their entrepreneurial projects at the FURI Symposium.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" id="current-snapshot">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Snapshot</h2>
+                <p>Students from three signature programs present at the FURI Symposium: Fulton Undergraduate Research Initiative, Master’s Opportunity for Research in Engineering and Grand Challenges Scholars Program. In Fall 2020, 144 students participated.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+				<div class="stat-package d-flex flex-row">
+					<h3><span>FURI</span>students</h3>
+					<div class="counter" data-count="134">0</div>
+                </div>
+                <div class="stat-package d-flex flex-row">
+					<h3><span>FURI</span>mentors</h3>
+					<div class="counter" data-count="58">0</div>
+				</div>
+            </div>
+            <div class="col-md-3">
+				<div class="stat-package d-flex flex-row">
+					<h3><span>MORE</span>students</h3>
+					<div class="counter" data-count="30">0</div>
+                </div>
+                <div class="stat-package d-flex flex-row">
+					<h3><span>MORE</span>mentors</h3>
+					<div class="counter" data-count="19">0</div>
+				</div>
+            </div>
+            <div class="col-md-3">
+				<div class="stat-package d-flex flex-row">
+					<h3><span>GCSP</span>students</h3>
+					<div class="counter" data-count="4">0</div>
+                </div>
+                <div class="stat-package d-flex flex-row">
+					<h3><span>GCSP</span>mentors</h3>
+					<div class="counter" data-count="3">0</div>
+				</div>
+            </div>
+            <div class="col-md-3">
+				<div class="stat-package d-flex flex-row">
+					<h3><span>KEEN</span>students</h3>
+					<div class="counter" data-count="1">0</div>
+                </div>
+                <div class="stat-package d-flex flex-row">
+					<h3><span>KEEN</span>mentors</h3>
+					<div class="counter" data-count="1">0</div>
+				</div>
+			</div>
         </div>
     </div>
     
@@ -216,6 +271,13 @@ $args = array(
                 ?>
 
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Project count in the current symposium</h3>
+                    <div id="subject-chart"></div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -224,7 +286,7 @@ $args = array(
                 <div class="row row-header">
                     <div class="col-md-8">
                         <h2>Sponsored students</h2>
-                        <p class="lead">Some of our researchers get extra funding through industry and alumni sponsors.</p>
+                        <p class="lead">Some of our researchers get extra funding through grants, industry and alumni sponsors.</p>
                     </div>
                 </div>
 
@@ -242,7 +304,8 @@ $args = array(
                     foreach ($sponsors as $sponsor) {
                         echo '<div class="col pr-6">';
                         echo '<h3>' . esc_html( $sponsor->name ) . '</h3>';
-                        echo wp_kses_post( $sponsor->description );
+                        echo '<p>' . wp_kses_post( $sponsor->description ) . '</p>';
+                        echo '<p><a class="btn btn-md btn-maroon" href="'. get_term_link($sponsor) . '" title="' . esc_html( $sponsor->name ). '">View sponsored projects</a></p>';
                         echo '</div>';
                     }
                     ?>

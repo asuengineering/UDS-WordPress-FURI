@@ -1,9 +1,11 @@
 /*--------------------------------------------------------------
 Taxonomy Term Page: Faculty Mentor
+Taxonomy Term Page: Industry Sponsor
 
-1. Desktop
+1. All sites
 --------------------------------------------------------------*/
-.tax-faculty_mentor {
+.tax-faculty_mentor,
+.tax-industry_sponsor {
 
     #content {
         margin-bottom:4rem;
@@ -35,6 +37,25 @@ Taxonomy Term Page: Faculty Mentor
     }
 
     .related-projects + .section-head {
+        background-color: $uds-color-base-gray-2;
+    }
+
+    #snapshot-global-title,
+    #snapshot-global {
+        display:none;
+    }
+}
+
+/*--------------------------------------------------------------
+2. Taxonomy Term Page: Industry Sponsor
+-------------------------------------------------------------- */
+
+.tax-industry_sponsor {
+    .btn svg {
+        margin-right:.5rem;
+    }
+
+    #snapshot-global-title {
         background-color: $uds-color-base-gray-2;
     }
 }
