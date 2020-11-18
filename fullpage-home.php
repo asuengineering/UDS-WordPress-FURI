@@ -193,7 +193,7 @@ $args = array(
         <div class="row">
             <div class="col-md-8">
                 <h2>Snapshot</h2>
-                <p>Students from three signature programs present at the FURI Symposium: Fulton Undergraduate Research Initiative, Master’s Opportunity for Research in Engineering and Grand Challenges Scholars Program. In Fall 2020, 144 students participated.</p>
+                <p>Students from three signature programs present at the FURI Symposium: Fulton Undergraduate Research Initiative, Master’s Opportunity for Research in Engineering and Grand Challenges Scholars Program. Students who earned KEEN Student Mini Grants also participate. In Summer and Fall 2020, 144 students participated.</p>
             </div>
         </div>
         <div class="row">
@@ -293,7 +293,6 @@ $args = array(
                 <div class="row">
 
                     <?php 
-
                     $sponsors = get_terms( 
                         array(
                             'taxonomy' => 'industry_sponsor',
@@ -313,6 +312,79 @@ $args = array(
                 </div>
             </div>
         </section>
+
+        <section id="featured-mentors">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Featured Mentors</h2>
+                    </div>
+                </div>
+
+                <?php 
+
+                $args = array(
+                    'taxonomy'   => 'faculty_mentor',
+                    'hide_empty' => true,
+                    'meta_query' => array(
+                        array(
+                            'key'       => '_mentor_featured_yn',
+                            'value'     => true,
+                            'compare'   => 'LIKE'
+                        )
+                    ),
+                    'orderby' => 'rand',
+                    'posts_per_page' => -1,
+                );
+                $featuredmentors = get_terms($args);
+
+                foreach ($featuredmentors as $mentor) {
+                    
+                    // Additional term meta here is required if the mentor is a featured mentor. 
+                    // No need to check if empty.
+                    $mentorprogram = get_field( '_mentor_featured_program', $mentor );
+                    $mentorquote = get_field( '_mentor_featured_quote', $mentor );
+                    $mentorcite = get_field( '_mentor_featured_citation', $mentor );
+                    $mentorlinkcite = get_field( '_mentor_featured_linked_citation', $mentor );
+
+                    $mentorimage = get_field( '_mentor_acf_thumbnail', $mentor );
+
+                    echo '<div class="row">';
+
+                    if ( ! empty( $mentorimage ) ) {
+                        echo '<div class="col-md-3">';
+                        echo '<img class="img-fluid" src="' . esc_html( $mentorimage ) . '" alt="' . esc_html( $mentor->name ) . '" />';
+                        echo '</div>';
+                    }
+                    
+                    echo '<div class="col-md-9">';
+                    echo '<h3><a href="'. get_term_link($mentor) . '" title="' . esc_html( $mentor->name ). '">' . esc_html( $mentor->name ) . '</a>, featured ' . esc_html( $mentorprogram->name ) . ' mentor</h3>';
+                    echo '<blockquote class="ws2-element-gold ws2-element-style ws2-element-spacing-entity">';
+                    echo '<p>' . wp_kses_post( $mentorquote ) . '</p>';
+
+                    if ( ! empty( $mentorlinkcite )) {
+                        $citedname = furi_participant_name( $mentorlinkcite->ID );
+                        $citedmajor = wp_strip_all_tags( get_the_term_list( $mentorlinkcite->ID, 'degree_program', '', ', ', '' ) );
+                       
+                        echo '<cite>';
+                        echo '<a href="' . esc_url( get_permalink( $mentorlinkcite ) ) . '" title="' . esc_html( $citedname ) . '">';
+                        echo  esc_html( trim( $citedname ) ) . '</a>, <span class="cited-degree-program">' . esc_html( $citedmajor ) . '</span>';
+                        echo '</cite>';
+                    } else {
+                        echo '<cite>' . wp_kses_post( $mentorcite ) . '</cite>';
+                    }
+
+                    echo '</blockquote>';
+                    echo '</div>';
+
+                    echo '</div>';
+                }
+
+                ?>
+                </div>
+            </div>
+        </section>
+
 
 
 </div><!-- Wrapper end -->

@@ -7,7 +7,7 @@
             "label": "Profile Photo",
             "name": "_mentor_acf_thumbnail",
             "type": "image",
-            "instructions": "",
+            "instructions": "Even if this is empty, a profile photo may already be enabled from the earlier theme or directly from iSearch. Uploaded images here will override any other image associated with this mentor.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -28,12 +28,23 @@
         },
         {
             "key": "field_5fa5d5d9a6e60",
-            "label": "Profile Photo (copy)",
+            "label": "Profile Photo (legacy)",
             "name": "_mentor_thumbnail",
             "type": "image",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5f88d3ff02646",
+                        "operator": "!=empty"
+                    },
+                    {
+                        "field": "field_5f88d3ff02646",
+                        "operator": "==empty"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -178,6 +189,139 @@
             },
             "default_value": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_5fb56219daf7b",
+            "label": "Display as Featured Mentor?",
+            "name": "_mentor_featured_yn",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5fb56363dd9ce",
+            "label": "Featured Mentor Quote",
+            "name": "_mentor_featured_quote",
+            "type": "text",
+            "instructions": "Displays as block quote on home page.",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5fb56219daf7b",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5fb563addd9cf",
+            "label": "Featured Mentor Citation",
+            "name": "_mentor_featured_citation",
+            "type": "text",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5fb56219daf7b",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5fb585948babc",
+            "label": "Featured Mentor Linked Citation",
+            "name": "_mentor_featured_linked_citation",
+            "type": "post_object",
+            "instructions": "Produces a linked citation to an individual student. Overrides the manual citation if present.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5fb56219daf7b",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "participant"
+            ],
+            "taxonomy": "",
+            "allow_null": 1,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
+        },
+        {
+            "key": "field_5fb563dadd9d0",
+            "label": "Featured Mentor Program",
+            "name": "_mentor_featured_program",
+            "type": "taxonomy",
+            "instructions": "",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5fb56219daf7b",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "taxonomy": "presentation_type",
+            "field_type": "select",
+            "allow_null": 0,
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "object",
+            "multiple": 0
         }
     ],
     "location": [
@@ -197,5 +341,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1605429813
+    "modified": 1605733601
 }

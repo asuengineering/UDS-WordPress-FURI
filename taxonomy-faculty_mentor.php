@@ -97,6 +97,18 @@ $term = get_queried_object();
 				<div class="col-md-8">
 					<?php
 
+					$mentorprogram = get_field( '_mentor_featured_program', $term );
+					$mentorquote = get_field( '_mentor_featured_quote', $term );
+					$mentorcite = get_field( '_mentor_featured_citation', $term );
+
+					if ( !empty ($mentorquote)) {
+						echo '<h3><span class="highlight-gold">Featured mentor, ' . esc_html( $mentorprogram->name ) . '</span></h3>';
+						echo '<blockquote class="ws2-element-gold ws2-element-style ws2-element-spacing-entity">';
+						echo '<p>' . wp_kses_post( $mentorquote ) . '</p>';
+						echo '<cite>' . wp_kses_post( $mentorcite ) . '</cite>';
+						echo '</blockquote>';
+					}
+
 					echo the_archive_description();
 					echo '<p><strong>Total mentored projects: </strong> ' . $wp_query->post_count . '</p>';
 
@@ -104,6 +116,7 @@ $term = get_queried_object();
 					if ( ! empty( $mentor_isearch ) ) {
 						echo '<a class="btn btn-maroon mentor-isearch" href="' . $mentor_isearch . '" target="_blank">iSearch</a>';
 					}
+
 					?>
 
 				</div>
