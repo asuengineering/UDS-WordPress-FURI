@@ -218,10 +218,12 @@ while ( have_posts() ) :
 									endforeach;
 									echo '</div></div>';
 								}
+							}
 
+							if ($sponsored_yn) {
+								
 								$sponsored_content = get_field( '_furiproject_sponsored_text' );
 								if (! empty( $sponsored_content ) ) {
-									
 									echo '<div class="col-md-8">';								
 									echo '<h3><span class="highlight-gold">Sponsored project | ' . esc_html( $symposiumdate ) . '</span></h3>';
 									echo wp_kses_post( $sponsored_content );
