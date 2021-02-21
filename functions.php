@@ -55,13 +55,12 @@ function furi_child_theme_enqueue_styles() {
 			wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, true );
 			wp_enqueue_script( 'furi-about', get_stylesheet_directory_uri() . '/js/custom-charts.js', array( 'google-charts' ), $theme_version, true );
 		}
-
-		if ( 'fullpage-home.php' == $template_name ) {
-			wp_enqueue_style( 'animate', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
-			wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, true );
-			wp_enqueue_script( 'furi-about', get_stylesheet_directory_uri() . '/js/custom-charts.js', array( 'google-charts' ), $theme_version, true );
-		}
 	}
+
+	// Check for the home page (front page) and load the animate CSS library.
+	// if ( is_front_page() ) {
+	// 	wp_enqueue_style( 'animate', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
+	// }
 
 	// Check for symposium-date archive pages and load DataTables JS.
 	if ( is_tax( 'symposium_date' ) ) {
@@ -80,6 +79,7 @@ add_action( 'wp_enqueue_scripts', 'furi_child_theme_enqueue_styles' );
 
 require get_stylesheet_directory() . '/inc/custom-post-types.php';
 require get_stylesheet_directory() . '/inc/posts-to-posts.php';
+require get_stylesheet_directory() . '/inc/acf-register.php';
 require get_stylesheet_directory() . '/inc/data-helpers.php';
 
 

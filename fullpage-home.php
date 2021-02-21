@@ -56,7 +56,9 @@ $args = array(
 <!-- Markup for the page -->
 <div class="wrapper" id="page-wrapper">
 
-    <?php include get_template_directory() . '/hero.php'; ?>
+    <?php get_template_part( 'templates-global/hero' ); ?>
+
+    <?php get_template_part( 'templates-global/global-banner' ); ?>
 
 	<div class="container" id="main-content">
 

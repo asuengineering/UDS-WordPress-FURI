@@ -161,7 +161,7 @@ function get_all_participant_tax_terms( $ids, $taxonomy, $label ) {
 }
 
 /**
- * Produces radio buttons for any included project category.
+ * Produces radio buttons for any included research theme.
  */
 function get_research_theme_radios( $args, $taxonomy, $label ) {
 
@@ -229,7 +229,7 @@ function get_project_type_radios( $args, $taxonomy, $label ) {
 }
 
 /**
- * Symposium Overview Function: Build Filter Item Classes from taxonomy info
+ * Symposium Overview Function: Build filter item classes from taxonomy info
  */
 
 function asufse_symposium_tax_filteritem_classes() {
@@ -287,17 +287,4 @@ function furi_participant_name( $personID ) {
 	}
 
 	return $first . $middle . $last . ' ' . $suffix;
-}
-
-// Term Meta for Faculty Mentors - Select Box Options
-function available_mentor_affiliations() {
-	return array(
-		'https://ssebe.engineering.asu.edu' => 'SSEBE',
-		'https://sbhse.engineering.asu.edu' => 'SBHSE',
-		'https://cidse.engineering.asu.edu' => 'CIDSE',
-		'https://ecee.engineering.asu.edu' => 'ECEE',
-		'https://semte.engineering.asu.edu' => 'SEMTE',
-		'https://poly.engineering.asd.edu' => 'Poly',
-		'' => 'Display none',
-	);
 }

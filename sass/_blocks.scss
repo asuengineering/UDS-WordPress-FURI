@@ -1,0 +1,109 @@
+/*--------------------------------------------------------------
+# Home Page
+
+1. Program Descriptions
+2. Current Snapshot
+3. Research Themes
+4. Featured Students / Sponsored Mentors
+--------------------------------------------------------------*/
+
+#program-descriptions {}
+
+@include media-breakpoint-up($md) {
+    #program-descriptions {
+        div[class*="col"] {
+            padding:1rem;
+        }
+    }
+}
+
+@include media-breakpoint-down($md) {
+    #program-descriptions {
+        margin-top:4rem;
+    }
+}
+
+
+/*--------------------------------------------------------------
+2. Current Snapshot
+--------------------------------------------------------------*/
+
+#current-snapshot {
+    display:block;
+    margin-top: 4em;
+    padding-top: 2em;
+    border-top:1px solid $uds-color-base-gray-4;
+
+    .stat-package {
+        margin-bottom: 1.5em;
+        padding: 10px;
+        h3 {
+            font-size: 1.75rem;
+            line-height: 0.95;
+            color: $uds-color-base-gray-7;
+            font-weight: 700;
+            text-align: right;
+            margin-right: 20px;
+            span {
+                display: block;
+                color: $uds-color-base-gold;
+            }
+        }
+        .counter {
+            font-size: 3.5rem;
+            line-height: 0.95;
+            color: $uds-color-base-gray-7;
+            font-weight: 700;
+            align-self:center;
+            margin-left:1rem;
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+3. Research Themes
+--------------------------------------------------------------*/
+
+#research-themes {
+    margin-top: 6rem;
+    padding-top:6rem;
+    padding-bottom: 6rem;
+    .row-header {
+        margin-bottom:2rem;
+    }
+    .container {
+        background-color:#ffffff;
+        padding:2rem;
+    }
+    .media {
+        margin-bottom:4rem;
+        img {
+            width:5rem;
+            height:auto;
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+4. Featured Students / Sponsored Mentors
+--------------------------------------------------------------*/
+
+#sponsored-students,
+#featured-mentors {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+#featured-mentors {
+    .row + .row {
+        margin-top: 4rem;
+    }
+
+    blockquote p {
+        font-weight:400;
+    }
+
+    .cited-degree-program {
+        text-transform: lowercase;
+    }
+}

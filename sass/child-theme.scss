@@ -10,6 +10,7 @@
 @import "_tax-misc-terms";
 @import "_tax-symposium-date";
 @import "_symposium";
+@import '_blocks';
 @import '_home';
 @import '_about';
 
@@ -26,8 +27,14 @@
 }
 
 /*--------------------------------------------------------------
-2. Page spacing, no heros
+2. Page spacing
 --------------------------------------------------------------*/
+.page-template-default {
+    .uds-hero + article {
+        margin-top:2rem;
+    }
+}
+
 
 @include media-breakpoint-up($lg) {
     .single-participant,
