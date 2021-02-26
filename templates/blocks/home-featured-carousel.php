@@ -58,6 +58,13 @@ if ( $display_date ) {
     while ( $query->have_posts() ) :
 
         $query->the_post();
+        global $post;
+        // echo '<h1>The Post</h1>';
+        // print_r($post);
+        
+        // echo '<h1>The Query</h1>';
+        // print("<pre>".print_r($query,true)."</pre>");
+        // print_r($query->ID);
         
         $featured_thumb = get_the_post_thumbnail( $query->ID, array(950,700), array( 'class' => 'img-fluid' ) );
 

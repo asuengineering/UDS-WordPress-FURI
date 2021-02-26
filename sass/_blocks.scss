@@ -5,6 +5,7 @@
 2. Current Snapshot
 3. Research Themes
 4. Featured Students / Sponsored Mentors
+5. Featured project carousel
 --------------------------------------------------------------*/
 
 #program-descriptions {}
@@ -105,5 +106,53 @@
 
     .cited-degree-program {
         text-transform: lowercase;
+    }
+}
+
+/*--------------------------------------------------------------
+5. Featured project carousel
+--------------------------------------------------------------*/
+.carousel {
+    .card-symposium {
+        position: absolute;
+        top:2rem;
+        right:4rem;
+        width:24rem;
+        height:auto;
+        animation-name: fadeInRight;
+        animation-duration: .65s;
+        animation-delay: 1.5s;
+    }
+    .featured-image {
+        animation-name: fadeInLeft;
+        animation-duration: .65s;
+        animation-delay: 1s;
+    }
+    .carousel-label {
+        position: absolute;
+        top: 1rem;
+        left:2rem;
+    }
+    .carousel-controls {
+        position:absolute;
+        bottom:0;
+        left:2rem;
+        text-align:left;
+
+        .carousel-indicators {
+            position:relative;
+            margin:1rem 0;
+            
+            li {
+                background-color: $uds-color-base-gray-4;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up($md) {
+    .carousel {
+        margin-top: 6rem;
+        margin-bottom:6rem;
     }
 }
