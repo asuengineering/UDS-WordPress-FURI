@@ -55,6 +55,16 @@ function furi_child_theme_enqueue_styles() {
 			wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, true );
 			wp_enqueue_script( 'furi-about', get_stylesheet_directory_uri() . '/js/custom-charts.js', array( 'google-charts' ), $theme_version, true );
 		}
+
+		// Check for symposium-date archive pages and load DataTables JS.
+		if ( 'data-dump.php' == $template_name ) {
+			wp_enqueue_style( 'datatables-bootstrap4', '//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css', array(), null );
+			wp_enqueue_script( 'datatables-js', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array(), '', true );
+			wp_enqueue_script( 'datatables-bootstrap4-js', '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js', array(), '', true );
+			wp_enqueue_script( 'custom-datatables-js', get_stylesheet_directory_uri() . '/js/custom-datatables.js', array( 'jquery' ), $theme_version, true );
+		} else {
+			echo '<h1>Steve</h1>';
+		}
 	}
 
 	// Check for the home page (front page) and load the animate CSS library.
