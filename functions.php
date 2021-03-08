@@ -62,8 +62,6 @@ function furi_child_theme_enqueue_styles() {
 			wp_enqueue_script( 'datatables-js', '//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', array(), '', true );
 			wp_enqueue_script( 'datatables-bootstrap4-js', '//cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js', array(), '', true );
 			wp_enqueue_script( 'custom-datatables-js', get_stylesheet_directory_uri() . '/js/custom-datatables.js', array( 'jquery' ), $theme_version, true );
-		} else {
-			echo '<h1>Steve</h1>';
 		}
 	}
 
