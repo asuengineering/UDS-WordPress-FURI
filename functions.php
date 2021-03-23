@@ -165,6 +165,6 @@ add_action( 'uds_wp_before_global_footer', 'uds_furi_add_symposium_totals' );
  * CPT definition defines functionality, this enables it across the whole theme.
  */
 function uds_furi_enable_post_thumbnails() {
-	add_theme_support( 'post-thumbnails', array( 'participant' ) );
+	add_theme_support( 'post-thumbnails', array( 'participant', 'furiproject' ) );
 }
 add_action( 'after_setup_theme', 'uds_furi_enable_post_thumbnails' );
