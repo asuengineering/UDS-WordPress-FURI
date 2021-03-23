@@ -7,6 +7,17 @@
 
 get_header();
 $term = get_queried_object();
+
+function available_mentor_affiliations() {
+    return array(
+        'https://ssebe.engineering.asu.edu' => 'SSEBE',
+        'https://sbhse.engineering.asu.edu' => 'SBHSE',
+        'https://cidse.engineering.asu.edu' => 'CIDSE',
+        'https://ecee.engineering.asu.edu' => 'ECEE',
+        'https://semte.engineering.asu.edu' => 'SEMTE',
+        'https://poly.engineering.asd.edu' => 'Poly',
+    );
+}
 ?>
 
 <div class="wrapper" id="page-wrapper">
