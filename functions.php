@@ -159,3 +159,12 @@ function uds_furi_add_symposium_totals() {
 	get_template_part( 'templates/snapshot', 'footer' );
 }
 add_action( 'uds_wp_before_global_footer', 'uds_furi_add_symposium_totals' );
+
+/** 
+ * Adds support for post thumbnails to participant CPT.
+ * CPT definition defines functionality, this enables it across the whole theme.
+ */
+function uds_furi_enable_post_thumbnails() {
+	add_theme_support( 'post-thumbnails', array( 'participant' ) );
+}
+add_action( 'after_setup_theme', 'uds_furi_enable_post_thumbnails' );
