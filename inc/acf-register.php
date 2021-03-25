@@ -102,6 +102,24 @@ function furi_acf_init_block_types() {
 			'keywords'          => array( 'home', 'featured', 'mentor' ),
 		));
 
+		// About Page - Letter from director
+		acf_register_block_type(array(
+			'name'              => 'about_director_message',
+			'title'             => __('Director Message'),
+			'description'       => __('Displays the message from the director with a full width background image.'),
+			'render_template'   => 'templates/blocks/about-director-message.php',
+			'category'          => 'FURI',
+			'icon' 				=> array(
+									'foreground' => '#8c1d40',
+									'src' => 'admin-comments',
+								),
+			'keywords'          => array( 'about', 'director' ),
+			'supports'		=> [
+				'customClassName'	=> true,
+				'jsx' 				=> true,
+			]
+		));
+
 		// Home Page - research themes, project count graph
 		acf_register_block_type(array(
 			'name'              => 'home_research_themes',
@@ -114,18 +132,42 @@ function furi_acf_init_block_types() {
 									'src' => 'admin-comments',
 								),
 			'keywords'          => array( 'home', 'themes', 'graph' ),
-			'enqueue_assets'	=> 'furi_enqueue_google_charts',
+			'enqueue_assets'	=> 'furi_enqueue_google_bar_chart',
+		));
+
+		// About Page - Life after FURI
+		acf_register_block_type(array(
+			'name'              => 'about_life_after_furi',
+			'title'             => __('Life After FURI'),
+			'description'       => __('Circle graph of survey results for alumni.'),
+			'render_template'   => 'templates/blocks/about-life-after-furi.php',
+			'category'          => 'FURI',
+			'icon' 				=> array(
+									'foreground' => '#8c1d40',
+									'src' => 'admin-comments',
+								),
+			'keywords'          => array( 'about', 'alumni', 'graph' ),
+			'enqueue_assets'	=> 'furi_enqueue_google_pie_chart',
 		));
     }
 }
 
-// Enqueue google charts when a block calls for those assets.
-function furi_enqueue_google_charts() {
+// Circle chart. Enqueue google charts + correct chart init file when a block calls for those assets.
+function furi_enqueue_google_pie_chart() {
 	$the_theme = wp_get_theme();
 	$theme_version = $the_theme->get( 'Version' );
 
 	wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, true );
-	wp_enqueue_script( 'furi-about', get_stylesheet_directory_uri() . '/js/custom-charts.js', array( 'google-charts' ), $theme_version, true );
+	wp_enqueue_script( 'furi-life-after', get_stylesheet_directory_uri() . '/js/custom-chart-life-after-furi.js', array( 'google-charts' ), $theme_version, true );
+}
+
+// Bar chart. Enqueue google charts + correct chart init file when a block calls for those assets.
+function furi_enqueue_google_bar_chart() {
+	$the_theme = wp_get_theme();
+	$theme_version = $the_theme->get( 'Version' );
+
+	wp_enqueue_script( 'google-charts', 'https://www.gstatic.com/charts/loader.js', array(), $theme_version, true );
+	wp_enqueue_script( 'furi-project-category', get_stylesheet_directory_uri() . '/js/custom-chart-project-category.js', array( 'google-charts' ), $theme_version, true );
 }
 
 // Enqueue animate.css when a block calls for those assets.

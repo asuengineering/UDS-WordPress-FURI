@@ -11,8 +11,6 @@
 @import "_tax-symposium-date";
 @import "_symposium";
 @import '_blocks';
-@import '_home';
-@import '_about';
 
 /*--------------------------------------------------------------
 1. Baseline grid
@@ -85,3 +83,51 @@
 #additional-projects + #related-projects-title {
     background-color: $uds-color-base-gray-2;
 }
+
+
+/*--------------------------------------------------------------
+4. Snapshot Global
+--------------------------------------------------------------*/
+#snapshot-global,
+#snapshot-global-title {
+    display:none;
+}
+
+@include media-breakpoint-up($md) {
+    #snapshot-global-title {
+        display:block;
+    }
+
+    #snapshot-global {
+        display:block;
+        padding-top: 4em;
+        background-color: $uds-color-base-gray-2;
+
+        .stat-package {
+            margin-bottom: 1.5em;
+            padding: 10px;
+            background-color: $uds-color-base-gray-4;
+            h3 {
+                font-size: 1.75rem;
+                line-height: 0.95;
+                color: $uds-color-base-gray-7;
+                font-weight: 700;
+                text-align: right;
+                margin-right: 20px;
+                span {
+                    display: block;
+                    color: #ffffff;
+                }
+            }
+            .counter {
+                font-size: 3.5rem;
+                line-height: 0.95;
+                color: $uds-color-base-gray-7;
+                font-weight: 700;
+                align-self:center;
+                margin-left:1rem;
+            }
+        }
+    }
+}
+

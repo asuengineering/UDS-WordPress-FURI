@@ -1,11 +1,13 @@
 /*--------------------------------------------------------------
-# Home Page
+# SASS for various custom blocks
 
 1. Program Descriptions
 2. Current Snapshot
 3. Research Themes
 4. Featured Students / Sponsored Mentors
 5. Featured project carousel
+6. FURI Alumni
+7. Life after FURI graph
 --------------------------------------------------------------*/
 
 #program-descriptions {}
@@ -154,5 +156,181 @@
     .carousel {
         margin-top: 6rem;
         margin-bottom:6rem;
+    }
+}
+
+/*--------------------------------------------------------------
+6. Director Message
+--------------------------------------------------------------*/
+#director-message {
+    
+    .row-title {
+        padding-top:2rem;
+    }
+
+    .row-letter {
+        padding-top:32rem;
+        div[class^="col-"] {
+            padding:3rem 3rem 0 3rem;
+        }
+    }
+    
+    .row-signature {
+
+        div[class^="col-"] {
+            padding:3rem 3rem 0 3rem;
+        }
+
+        .signatures {
+            display: flex;
+            flex-wrap:wrap;
+        }
+        
+        .signee {
+            width:50%;
+            padding-bottom:1.5rem;
+            span {
+                font-weight:700;
+                display:block;
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------
+6. FURI Alumni
+--------------------------------------------------------------*/
+.furi-alumni {
+    background-color: #99e4ff; /* 80% saturated from ASU Blue. */
+    background-image: url("../img/amountain.png");
+    background-size: 55%;
+    background-position: 100% 108%;
+    background-repeat: no-repeat;
+    padding: 4rem 0;
+
+    div[class^="col-"] {
+        > * {
+            padding:.5rem 1rem;
+            margin-bottom:0;
+            background-color: rgba(255, 255, 255, 0.85);
+        }
+
+        > *:first-child {
+            padding-top:1.5rem;
+        }
+    }
+
+    h4 {
+        margin: 1em 0 1.5em;
+    }
+}
+
+/*--------------------------------------------------------------
+7. Life after FURI graph
+--------------------------------------------------------------*/
+#life-after-furi {
+    margin: 3rem 0;
+    .col-wrap {
+        h4 {
+            display: none;
+        }
+        .intro {
+            position: relative;
+            width: inherit;
+        }
+
+        #donutchart {
+            display: none;
+        }
+
+        .distribution {
+            font-size: 3em;
+            font-weight: 700;
+
+            line-height: 1;
+            z-index: 20;
+
+            div {
+                margin-left: 0;
+                p {
+                    display: table-cell;
+                    font-size: 14px;
+                    background-color: #ffc627;
+                    color: #222222;
+                    padding: 5px;
+                }
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up($md) {
+    #life-after-furi {    
+        .col-wrap {
+            position: relative;
+
+            .intro {
+                position: absolute;
+                width: 35%;
+                right: 5px;
+                top: 0;
+                font-size: 14px;
+                z-index: 20;
+            }
+
+            h4 {
+                font-size: 3em;
+                font-weight: bold;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: 22%;
+                display: block;
+                line-height: 1;
+                z-index: 20;
+
+                span {
+                    display: block;
+                    font-size: 6rem;
+                    line-height: 1;
+                }
+            }
+
+            #donutchart {
+                display:block;
+            }
+
+            .distribution {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+
+                font-size: 4em;
+                font-weight: 700;
+
+                line-height: 1;
+                z-index: 20;
+
+                div {
+                    margin-left: 0.75em;
+                    p {
+                        display: table-cell;
+                        font-size: 14px;
+                        background-color: #ffc627;
+                        color: #222222;
+                        padding: 5px;
+                    }
+                }
+            }
+
+            #donutchart {
+                z-index: 10;
+            }
+        }
+
+        #donutchart {
+            width: 100%;
+            min-height: 600px;
+        }
     }
 }
