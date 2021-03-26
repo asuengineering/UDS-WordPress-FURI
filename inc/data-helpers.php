@@ -61,9 +61,13 @@ function get_research_theme_class_names( $projectID ) {
 
 	$terms = get_the_terms( $projectID, 'research_theme' );
 
-	foreach ( $terms as $term ) {
-		$css_class .= 'theme-' . $term->slug . '-bg ';
-		$css_class .= 'theme-' . $term->slug . '-text ';
+	if ( ! empty ( $terms )) {
+
+		foreach ( $terms as $term ) {
+			$css_class .= 'theme-' . $term->slug . '-bg ';
+			$css_class .= 'theme-' . $term->slug . '-text ';
+		}
+
 	}
 
 	return trim( $css_class );

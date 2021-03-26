@@ -3,6 +3,23 @@
     "title": "Faculty Mentor Details",
     "fields": [
         {
+            "key": "field_605cf36eb570e",
+            "label": "Photo & Display",
+            "name": "",
+            "type": "accordion",
+            "instructions": "Add a featured image. Control the visibility as a featured mentor.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 1,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
             "key": "field_5f88d3ff02646",
             "label": "Profile Photo",
             "name": "_mentor_acf_thumbnail",
@@ -62,10 +79,10 @@
             "mime_types": ""
         },
         {
-            "key": "field_5f88d43402647",
-            "label": "Job Title",
-            "name": "_mentor_title",
-            "type": "text",
+            "key": "field_5fb563dadd9d0",
+            "label": "Featured Mentor Program",
+            "name": "_mentor_featured_program",
+            "type": "taxonomy",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -74,11 +91,50 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "taxonomy": "presentation_type",
+            "field_type": "select",
+            "allow_null": 1,
+            "add_term": 0,
+            "save_terms": 0,
+            "load_terms": 0,
+            "return_format": "object",
+            "multiple": 0
+        },
+        {
+            "key": "field_605cf45eb5712",
+            "label": "Use Quote or Profile",
+            "name": "_mentor_use_quote_yn",
+            "type": "true_false",
+            "instructions": "The display of this featured mentor information can either show a formatted blockquote or the contents of a related post. Effects the display on both the featured mentor block (home page) and the featured mentor page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 1,
+            "ui": 1,
+            "ui_on_text": "Quote",
+            "ui_off_text": "Post"
+        },
+        {
+            "key": "field_605cf387b570f",
+            "label": "Affiliations & Links",
+            "name": "",
+            "type": "accordion",
+            "instructions": "Job title and affiliation. URLs for social media, iSearch and their website.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_5f88d49402648",
@@ -109,6 +165,25 @@
             "ajax": 0,
             "return_format": "value",
             "placeholder": ""
+        },
+        {
+            "key": "field_5f88d43402647",
+            "label": "Job Title",
+            "name": "_mentor_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         },
         {
             "key": "field_5f88d56f02649",
@@ -191,11 +266,11 @@
             "placeholder": ""
         },
         {
-            "key": "field_5fb56219daf7b",
-            "label": "Display as Featured Mentor?",
-            "name": "_mentor_featured_yn",
-            "type": "true_false",
-            "instructions": "",
+            "key": "field_605cf3c1b5710",
+            "label": "Featured Quote",
+            "name": "",
+            "type": "accordion",
+            "instructions": "One of two possible content displays. Includes an option to show a simple blockquote + a citation for that quote to another participant within the website.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -203,28 +278,18 @@
                 "class": "",
                 "id": ""
             },
-            "message": "",
-            "default_value": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
         },
         {
             "key": "field_5fb56363dd9ce",
-            "label": "Featured Mentor Quote",
+            "label": "Featured Quote",
             "name": "_mentor_featured_quote",
             "type": "text",
             "instructions": "Displays as block quote on home page.",
-            "required": 1,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5fb56219daf7b",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -238,20 +303,31 @@
         },
         {
             "key": "field_5fb563addd9cf",
-            "label": "Featured Mentor Citation",
-            "name": "_mentor_featured_citation",
+            "label": "Citation Name",
+            "name": "_mentor_featured_citation_name",
             "type": "text",
             "instructions": "",
-            "required": 1,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5fb56219daf7b",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_605d0ce4d3eb0",
+            "label": "Citation Description",
+            "name": "_mentor_featured_citation_description",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -294,34 +370,45 @@
             "ui": 1
         },
         {
-            "key": "field_5fb563dadd9d0",
-            "label": "Featured Mentor Program",
-            "name": "_mentor_featured_program",
-            "type": "taxonomy",
-            "instructions": "",
-            "required": 1,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5fb56219daf7b",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
+            "key": "field_605cf418b5711",
+            "label": "Featured Profile",
+            "name": "",
+            "type": "accordion",
+            "instructions": "The second of two possible content displays. Define a blog post to use as the source for an expanded profile piece for a FURI mentor.",
+            "required": 0,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "taxonomy": "presentation_type",
-            "field_type": "select",
-            "allow_null": 0,
-            "add_term": 0,
-            "save_terms": 0,
-            "load_terms": 0,
+            "open": 0,
+            "multi_expand": 0,
+            "endpoint": 0
+        },
+        {
+            "key": "field_605cfc47bc2dd",
+            "label": "Featured Mentor Post",
+            "name": "_mentor_featured_post",
+            "type": "post_object",
+            "instructions": "Select the associated post for this featured mentor.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "post"
+            ],
+            "taxonomy": [
+                "category:featured-mentor"
+            ],
+            "allow_null": 1,
+            "multiple": 0,
             "return_format": "object",
-            "multiple": 0
+            "ui": 1
         }
     ],
     "location": [
@@ -341,5 +428,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1605733601
+    "modified": 1616714959
 }
