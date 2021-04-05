@@ -108,24 +108,66 @@
             padding: 10px;
             background-color: $uds-color-base-gray-4;
             h3 {
-                font-size: 1.75rem;
+                font-size: 1.25rem;
                 line-height: 0.95;
                 color: $uds-color-base-gray-7;
                 font-weight: 700;
                 text-align: right;
-                margin-right: 20px;
                 span {
                     display: block;
                     color: #ffffff;
                 }
             }
             .counter {
-                font-size: 3.5rem;
+                font-size: 2rem;
                 line-height: 0.95;
                 color: $uds-color-base-gray-7;
                 font-weight: 700;
                 align-self:center;
                 margin-left:1rem;
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up($lg) {
+
+    #snapshot-global {
+        .stat-package {
+            h3 {
+                font-size: 2rem;
+            }
+            .counter {
+                font-size: 2.5rem;
+                margin-left:1rem;
+            }
+
+            &.focus-areas {
+                h3 {
+                    margin:1rem;
+                }
+            }
+        }
+    }
+}
+
+@include media-breakpoint-up($xl) {
+
+    #snapshot-global {
+        .stat-package {
+            h3 {
+                font-size: 1.75rem;
+                margin-left:1rem;
+            }
+            .counter {
+                font-size: 3.5rem;
+                margin-left:2rem;
+            }
+
+            &.focus-areas {
+                h3 {
+                    margin-right:2rem;
+                }
             }
         }
     }

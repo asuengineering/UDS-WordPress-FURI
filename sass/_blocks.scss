@@ -38,8 +38,12 @@
     border-top:1px solid $uds-color-base-gray-4;
 
     .stat-package {
+        display:flex;
+        flex-direction:row;
+        justify-content:center;
         margin-bottom: 1.5em;
         padding: 10px;
+        
         h3 {
             font-size: 1.75rem;
             line-height: 0.95;
@@ -110,48 +114,49 @@
 /*--------------------------------------------------------------
 5. Featured project carousel
 --------------------------------------------------------------*/
-.carousel {
-    .card-symposium {
-        position: absolute;
-        top:2rem;
-        right:4rem;
-        width:24rem;
-        height:auto;
-        animation-name: fadeInRight;
-        animation-duration: .65s;
-        animation-delay: 1.5s;
-    }
-    .featured-image {
-        animation-name: fadeInLeft;
-        animation-duration: .65s;
-        animation-delay: 1s;
-    }
-    .carousel-label {
-        position: absolute;
-        top: 1rem;
-        left:2rem;
-    }
-    .carousel-controls {
-        position:absolute;
-        bottom:0;
-        left:2rem;
-        text-align:left;
+#featured-carousel {
+    .carousel {
+        .card-symposium {
+            position: absolute;
+            top:2rem;
+            right:4rem;
+            width:24rem;
+            height:auto;
+            animation-name: fadeInRight;
+            animation-duration: .65s;
+            animation-delay: 1.5s;
+        }
+        .featured-image {
+            animation-name: fadeInLeft;
+            animation-duration: .65s;
+            animation-delay: 1s;
+        }
+        .carousel-label {
+            position: absolute;
+            top: 1rem;
+            left:2rem;
+        }
+        .carousel-controls {
+            position:absolute;
+            bottom:0;
+            left:2rem;
+            text-align:left;
 
-        .carousel-indicators {
-            position:relative;
-            margin:1rem 0;
-            
-            li {
-                background-color: $uds-color-base-gray-4;
+            .carousel-indicators {
+                position:relative;
+                margin:1rem 0;
+                
+                li {
+                    background-color: $uds-color-base-gray-4;
+                }
             }
         }
     }
 }
 
-@include media-breakpoint-up($md) {
-    .carousel {
-        margin-top: 6rem;
-        margin-bottom:6rem;
+@include media-breakpoint-down($md) {
+    #featured-carousel {
+        display:none;
     }
 }
 

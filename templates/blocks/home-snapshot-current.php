@@ -64,12 +64,12 @@ if ( $programs ) {
 
         // Output for the actual boxes
         ?>
-        <div class="col-md-3">
-            <div class="stat-package d-flex flex-row">
+        <div class="col">
+            <div class="stat-package">
                 <h3><span><?php echo esc_html( $program->name );?></span>projects</h3>
                 <div class="counter" data-count="<?php echo $projectcount; ?>">0</div>
             </div>
-            <div class="stat-package d-flex flex-row">
+            <div class="stat-package">
                 <h3><span><?php echo esc_html( $program->name );?></span>mentors</h3>
                 <div class="counter" data-count="<?php echo count( $mentor_count); ?>">0</div>
             </div>

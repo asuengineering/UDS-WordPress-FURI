@@ -11,8 +11,7 @@ $display_date = get_field('block_featured_project_carousel_year');
 $display_all = get_field('block_featured_project_carousel_include_all');
 $display_number = get_field('block_featured_project_carousel_include_count');
 
-    echo '<section id="main-content">';
-    echo '<div class="container">';
+    echo '<div class="container" id="featured-carousel">';
     echo '<div class="row row-header">';
     echo '<div class="col-md-8">';
     echo '<h2>' . $headline . '</h2>';

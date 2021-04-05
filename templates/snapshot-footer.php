@@ -69,8 +69,8 @@ foreach ($presentations as $presentation) {
 				</div>
 			</div>
 			<div class="col-md-3">
-				<div class="stat-package d-flex flex-row">
-					<h3><span>Research</span>Focus Areas</h3>
+				<div class="stat-package d-flex flex-row focus-areas">
+					<h3><span>Focus</span>Areas</h3>
 					<div class="counter" data-count="<?php echo esc_html( $focusareas ); ?>">0</div>
 				</div>
 			</div>
