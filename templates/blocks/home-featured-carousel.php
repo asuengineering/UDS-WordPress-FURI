@@ -79,7 +79,7 @@ if ( $display_date ) {
         endforeach;
 
         $presentationtype = wp_strip_all_tags( get_the_term_list( $query->ID, 'presentation_type', '', ', ', '' ) );
-        $projectimpact = get_field( '_furiproject_impact_statement', $query->ID );
+        $projectimpact = get_field( '_furiproject_impact_statement', get_the_id() );
         $projectclassname = get_research_theme_class_names( $query->ID );
 
         $indicators .= '<li data-target="#featured-projects" data-slide-to="' . $activeclass . '"';
