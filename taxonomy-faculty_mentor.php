@@ -19,172 +19,189 @@ function available_mentor_affiliations() {
     );
 }
 ?>
+<main class="site-main" id="main">
 
-<div class="wrapper" id="page-wrapper">
+	<div class="container" id="page-header">
 
-	<div class="container" id="content">
-
-		<main class="site-main" id="main">
-
-			<div class="row">
-				<div class="col-md-12">
-					<h1 class="mentor-name"><?php echo $term->name; ?></h1>
-
-					<?php
-					$affiliations = available_mentor_affiliations();
-					$affiliation = get_field( '_mentor_affiliation', $term );
-					$affiliation_label = $affiliations[ $affiliation ];
-
-					$title = get_field( '_mentor_title', $term );
-
-					if ( ! empty( $affiliation ) ) {
-						$affiliationString = '<a href="' . $affiliation . '" target=_blank>' . $affiliation_label . '</a>';
-					}
-
-					?>
-
-					<h3 class="mentor-info"><?php echo wp_kses_post( $affiliationString ); ?> | <?php echo esc_html( $title ); ?></h2>
-
-				</div>
-			</div>
-
-			<div class="row">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="mentor-name"><?php echo $term->name; ?></h1>
+				
 				<?php
-				/** Get faculty image. Deal with legacy image storage from Carbon Fields.
-				 *  Looks for ACF field first, then uses old carbon field meta location as backup.
-				 */
 
-				$portrait = get_field( '_mentor_thumbnail', $term );
-				$portrait_acf = get_field( '_mentor_acf_thumbnail', $term );
+				$affiliations = available_mentor_affiliations();
+				$affiliation = get_field( '_mentor_affiliation', $term );
+				$affiliation_label = $affiliations[ $affiliation ];
 
-				// Check to see if either is available. If so, output the markup for the column
-				if ( ( ! empty( $portrait_acf ) ) || ( ! empty( $portrait ) ) ) {
+				$title = get_field( '_mentor_title', $term );
 
-					echo '<div class="col-md-4">';
-
-					// Check to see if ACF field is populated. If so, display just that.
-					// Otherwise check & display the CF image if there's something to display.
-					if ( ! empty( $portrait_acf ) ) {
-						echo '<img class="acf-image img-fluid" src="' . $portrait_acf . '" alt="Portrait of ' . get_queried_object()->term_name . '"/>';
-					} else {
-						if ( ! empty( $portrait ) ) {
-							echo '<img class="cf-image img-fluid" src="' . $portrait . '" alt="Portrait of ' . get_queried_object()->term_name . '"/>';
-						}
-					}
-
-					// Social Media Icons for the faculty member
-					$mentor_fb = get_field( '_mentor_social_facebook', $term );
-					$mentor_li = get_field( '_mentor_social_linkedin', $term );
-					$mentor_tw = get_field( '_mentor_social_twitter', $term );
-					$mentor_web = get_field( '_mentor_social_website', $term );
-
-					$socialbar = '';
-
-					if ( ! empty( $mentor_tw ) ) {
-						$socialbar .= '<li><a href="' . $mentor_tw . '" target=_blank><i class="fab fa-twitter"></i></a></li>';
-					}
-
-					if ( ! empty( $mentor_li ) ) {
-						$socialbar .= '<li><a href="' . $mentor_li . '" target=_blank><i class="fab fa-linkedin"></i></a></li>';
-					}
-
-					if ( ! empty( $mentor_fb ) ) {
-						$socialbar .= '<li><a href="' . $mentor_fb . '" target=_blank><i class="fab fa-facebook"></i></a></li>';
-					}
-
-					if ( ! empty( $mentor_web ) ) {
-						$socialbar .= '<li><a href="' . $mentor_web . '" target=_blank><i class="fas fa-globe"></i></a></li>';
-					}
-
-					if ( ! empty( $socialbar ) ) {
-						echo '<ul class="social-icons">' . $socialbar . '</ul>';
-					}
-
-					echo '</div>';
-
+				if ( ! empty( $affiliation ) ) {
+					$affiliationString = '<a href="' . $affiliation . '" target=_blank>' . $affiliation_label . '</a>';
 				}
+
+				$mentorstring = '';
+				$mentorprogram = get_field( '_mentor_featured_program', $term );
+				if ( !empty ( $mentorprogram )) {
+					$mentorstring = '<h3><span class="highlight-gold">Featured mentor, ' . esc_html( $mentorprogram->name ) . '</span></h3>';
+					echo $mentorstring;
+				}
+
 				?>
 
-				<div class="col-md-8">
-					<?php
+				<h3 class="mentor-info"><?php echo wp_kses_post( $affiliationString ); ?> | <?php echo esc_html( $title ); ?></h3>
 
-					$mentorprogram = get_field( '_mentor_featured_program', $term );
-					if ( !empty ( $mentorprogram )) {
-						echo '<h3><span class="highlight-gold">Featured mentor, ' . esc_html( $mentorprogram->name ) . '</span></h3>';
-					}
-					
-					// Which content should be displayed? The quote or the post?
-					$mentor_use_quote = get_field( '_mentor_use_quote_yn', $term );
-					
-					if ( $mentor_use_quote ) {
-
-						// Use the quote + the description for the term.
-						$mentorquote = get_field( '_mentor_featured_quote', $term );
-						$mentorlinkcite = get_field( '_mentor_featured_linked_citation', $term );
-	
-						if ( !empty ($mentorquote)) {
-							echo '<figure class="uds-blockquote accent-gold bq-color-padding">';
-							echo '<div class="feature-wrapper">';
-							echo '<svg title="Open quote" role="decorative" viewBox="0 0 302.87 245.82">';
-							echo '<path d="M113.61,245.82H0V164.56q0-49.34,8.69-77.83T40.84,35.58Q64.29,12.95,100.67,0l22.24,46.9q-34,11.33-48.72,31.54T58.63,132.21h55Zm180,0H180V164.56q0-49.74,8.7-78T221,35.58Q244.65,12.95,280.63,0l22.24,46.9q-34,11.33-48.72,31.54t-15.57,53.77h55Z"></path>';
-							echo '</svg>';
-							echo '</div>';
-							echo '<div class="content-wrapper">';
-							echo '<blockquote>';
-							echo '<p>' . wp_kses_post( $mentorquote ) .'</p>';
-							echo '</blockquote>';
-							echo '<figcaption>';
-			
-							if ( ! empty( $mentorlinkcite )) {
-								
-								$citedname = furi_participant_name( $mentorlinkcite->ID );
-								$citedmajor = wp_strip_all_tags( get_the_term_list( $mentorlinkcite->ID, 'degree_program', '', ', ', '' ) );
-							
-								echo '<cite class="name">';
-								echo '<a href="' . esc_url( get_permalink( $mentorlinkcite ) ) . '" title="' . esc_html( $citedname ) . '">';
-								echo  esc_html( trim( $citedname ) ) . '</a>';
-								echo '</cite>';
-								echo '<cite class="description">' . esc_html( $citedmajor ) . '</cite>';
-			
-							} else {
-			
-								$mentorcitename = get_field( '_mentor_featured_citation_name', $term );
-								$mentorcitedesc = get_field( '_mentor_featured_citation_description', $term );
-			
-								echo '<cite class="name">' . wp_kses_post( $mentorcitename ) . '</cite>';
-								echo '<cite class="description">' . wp_kses_post( $mentorcitedesc ) . '</cite>';
-							}
-			
-							echo '</figcaption>';
-							echo '</div>';
-							echo '</figure>';
-						}
-
-						echo the_archive_description();
-
-					} else {
-
-						// Use the content from the blog post.
-						$mentorpost = get_field( '_mentor_featured_post', $term );
-						
-						if ( !empty ($mentorpost)) {
-							echo apply_filters( 'the_content', $mentorpost->post_content );
-						}
-
-					}
-
-					echo '<p><strong>Total mentored projects: </strong> ' . $wp_query->post_count . '</p>';
-
-					$mentor_isearch = get_field( '_mentor_isearch', $term );
-					if ( ! empty( $mentor_isearch ) ) {
-						echo '<a class="btn btn-maroon mentor-isearch" href="' . $mentor_isearch . '" target="_blank">iSearch</a>';
-					}
-
-					?>
-
-				</div>
 			</div>
-		</div><!-- end .container -->
+		</div>
+	</div>
+
+	<?php
+
+	// Which content should be displayed? The quote or the post?
+	$mentor_use_quote = get_field( '_mentor_use_quote_yn', $term );
+	
+	if ( $mentor_use_quote ) {
+
+		echo '<div class="container" id="quote-content">';
+		echo '<div class="row">';
+
+		/** Get faculty image. Deal with legacy image storage from Carbon Fields.
+		 *  Looks for ACF field first, then uses old carbon field meta location as backup.
+		 */
+
+		$portrait = get_field( '_mentor_thumbnail', $term );
+		$portrait_acf = get_field( '_mentor_acf_thumbnail', $term );
+
+		// Check to see if either is available. If so, output the markup for the column
+		if ( ( ! empty( $portrait_acf ) ) || ( ! empty( $portrait ) ) ) {
+
+			echo '<div class="col-md-4">';
+
+			// Check to see if ACF field is populated. If so, display just that.
+			// Otherwise check & display the CF image if there's something to display.
+			if ( ! empty( $portrait_acf ) ) {
+				echo '<img class="acf-image img-fluid" src="' . $portrait_acf . '" alt="Portrait of ' . get_queried_object()->term_name . '"/>';
+			} else {
+				if ( ! empty( $portrait ) ) {
+					echo '<img class="cf-image img-fluid" src="' . $portrait . '" alt="Portrait of ' . get_queried_object()->term_name . '"/>';
+				}
+			}
+
+			// Social Media Icons for the faculty member
+			$mentor_fb = get_field( '_mentor_social_facebook', $term );
+			$mentor_li = get_field( '_mentor_social_linkedin', $term );
+			$mentor_tw = get_field( '_mentor_social_twitter', $term );
+			$mentor_web = get_field( '_mentor_social_website', $term );
+
+			$socialbar = '';
+
+			if ( ! empty( $mentor_tw ) ) {
+				$socialbar .= '<li><a href="' . $mentor_tw . '" target=_blank><i class="fab fa-twitter"></i></a></li>';
+			}
+
+			if ( ! empty( $mentor_li ) ) {
+				$socialbar .= '<li><a href="' . $mentor_li . '" target=_blank><i class="fab fa-linkedin"></i></a></li>';
+			}
+
+			if ( ! empty( $mentor_fb ) ) {
+				$socialbar .= '<li><a href="' . $mentor_fb . '" target=_blank><i class="fab fa-facebook"></i></a></li>';
+			}
+
+			if ( ! empty( $mentor_web ) ) {
+				$socialbar .= '<li><a href="' . $mentor_web . '" target=_blank><i class="fas fa-globe"></i></a></li>';
+			}
+
+			if ( ! empty( $socialbar ) ) {
+				echo '<ul class="social-icons">' . $socialbar . '</ul>';
+			}
+
+			echo '</div>';
+
+		}
+
+		echo '<div class="col-md-8">';
+
+		// Use the quote + the description for the term.
+		$mentorquote = get_field( '_mentor_featured_quote', $term );
+		$mentorlinkcite = get_field( '_mentor_featured_linked_citation', $term );
+
+		if ( !empty ($mentorquote)) {
+			echo '<figure class="uds-blockquote accent-gold bq-color-padding">';
+			echo '<div class="feature-wrapper">';
+			echo '<svg title="Open quote" role="decorative" viewBox="0 0 302.87 245.82">';
+			echo '<path d="M113.61,245.82H0V164.56q0-49.34,8.69-77.83T40.84,35.58Q64.29,12.95,100.67,0l22.24,46.9q-34,11.33-48.72,31.54T58.63,132.21h55Zm180,0H180V164.56q0-49.74,8.7-78T221,35.58Q244.65,12.95,280.63,0l22.24,46.9q-34,11.33-48.72,31.54t-15.57,53.77h55Z"></path>';
+			echo '</svg>';
+			echo '</div>';
+			echo '<div class="content-wrapper">';
+			echo '<blockquote>';
+			echo '<p>' . wp_kses_post( $mentorquote ) .'</p>';
+			echo '</blockquote>';
+			echo '<figcaption>';
+
+			if ( ! empty( $mentorlinkcite )) {
+				
+				$citedname = furi_participant_name( $mentorlinkcite->ID );
+				$citedmajor = wp_strip_all_tags( get_the_term_list( $mentorlinkcite->ID, 'degree_program', '', ', ', '' ) );
+			
+				echo '<cite class="name">';
+				echo '<a href="' . esc_url( get_permalink( $mentorlinkcite ) ) . '" title="' . esc_html( $citedname ) . '">';
+				echo  esc_html( trim( $citedname ) ) . '</a>';
+				echo '</cite>';
+				echo '<cite class="description">' . esc_html( $citedmajor ) . '</cite>';
+
+			} else {
+
+				$mentorcitename = get_field( '_mentor_featured_citation_name', $term );
+				$mentorcitedesc = get_field( '_mentor_featured_citation_description', $term );
+
+				echo '<cite class="name">' . wp_kses_post( $mentorcitename ) . '</cite>';
+				echo '<cite class="description">' . wp_kses_post( $mentorcitedesc ) . '</cite>';
+			}
+
+			echo '</figcaption>';
+			echo '</div>';
+			echo '</figure>';
+		}
+
+		echo the_archive_description();
+
+		echo '</div>';
+		echo '</div><!-- end .row -->';
+		echo '</div><!-- end .quote-content -->';
+
+	} else {
+		
+		// Blog posts would normally assume that the template will have a container already in the template;
+		echo '<div class="container" id="blog-post-content">';
+		echo '<div class="row">';
+		echo '<div class="col-md-12">';
+
+		// Use the content from the blog post.
+		$mentorpost = get_field( '_mentor_featured_post', $term );
+				
+		if ( !empty ($mentorpost)) {
+			echo apply_filters( 'the_content', $mentorpost->post_content );
+		}
+
+		echo '</div>';
+		echo '</div>';
+		echo '</div>';
+	}
+
+	echo '<div class="container mb-sm-4 mb-md-8">';
+	echo '<div class="row">';
+	echo '<div class="col-md-8">';
+	echo '<p><strong>Total mentored projects: </strong> ' . $wp_query->post_count . '</p>';
+
+	$mentor_isearch = get_field( '_mentor_isearch', $term );
+	if ( ! empty( $mentor_isearch ) ) {
+		echo '<a class="btn btn-maroon mentor-isearch" href="' . $mentor_isearch . '" target="_blank">iSearch</a>';
+	}
+
+	echo '</div>';
+	echo '</div>';
+	echo '</div>';
+		
+	?>
 
 		<?php
 		$_events = get_terms(
