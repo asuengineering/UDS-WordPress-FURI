@@ -89,33 +89,8 @@ require get_stylesheet_directory() . '/inc/custom-post-types.php';
 require get_stylesheet_directory() . '/inc/posts-to-posts.php';
 require get_stylesheet_directory() . '/inc/acf-register.php';
 require get_stylesheet_directory() . '/inc/data-helpers.php';
+require get_stylesheet_directory() . '/inc/gravity-forms.php';
 
-
-// Gravity Forms. Create participant_to_project connections after post submission.
-// ===============================================
-add_action( 'gform_after_submission_1', 'create_project_connections', 10, 2 );
-function create_project_connections( $entry, $form ) {
-	// More than one post may be created for a form submission.
-	// The created post ids are stored as an array in the entry meta
-	$created_posts = gform_get_meta( $entry['id'], 'gravityformsadvancedpostcreation_post_id' );
-
-	// Count the number of things in the array.
-	if ( count( $created_posts ) > 1 ) {
-		// Greater than one item in the array means it created a project & a person.
-		// Get both items in the array and create a connection.
-		$from = $created_posts[0]['post_id'];
-		$to = $created_posts[1]['post_id'];
-	} else {
-		// The form submission created exactly one post object. It will be a project. Get the id.
-		// Also get the value of the post ID already selected in the form. That's stored in fieldID=5
-		$from = $created_posts[0]['post_id'];
-		$to = $entry[5];
-	}
-
-	// Create the connection.
-	p2p_type( 'participants_to_projects' )->connect( $from, $to, array( 'date' => current_time( 'mysql' ) ) );
-
-}
 /**
  * Prints inline styles for research project categories.
  * Useful for color coding elements on the fly with a CSS class instead of inline styles.
