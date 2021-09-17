@@ -48,10 +48,33 @@ function furi_abstract_submission_populate_mentors($form){
     return $form;
 }
 
+// Assign faculty mentor to submitted project.
+// ===============================================
+add_action( 'gform_advancedpostcreation_post_after_creation_1', 'furi_abstract_assign_misc_data', 10, 4 );
+function furi_abstract_assign_misc_data($post_id, $feed, $entry, $form) {
+
+    do_action( 'qm/debug', $entry);
+
+    // Check feed ID first. That will let us know which post_id object was created.
+    // Feed ID #1 - Create New Participant
+    // Feed ID #2 - Create New Project
+
+    $feed_id = rgar( $feed, 'id');
+
+    // Assign faculty_mentor term to the correct taxonomy.
+    if (2 == $feed_id) {
+        $mentor = rgar ( $entry, '60');
+        wp_set_object_terms( $post_id, intval($mentor), 'faculty_mentor');
+    }
+
+    // TODO: Assign featured image with $feed_id = 1;
+}
+
 // Create participant_to_project connections after post submission.
 // ===============================================
 add_action( 'gform_after_submission_1', 'create_project_connections', 10, 2 );
 function create_project_connections( $entry, $form ) {
+
 	// More than one post may be created for a form submission.
 	// The created post ids are stored as an array in the entry meta
 	$created_posts = gform_get_meta( $entry['id'], 'gravityformsadvancedpostcreation_post_id' );
