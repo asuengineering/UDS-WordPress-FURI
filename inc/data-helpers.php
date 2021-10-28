@@ -97,32 +97,53 @@ function get_symposium_status_url( $projectID ) {
 	}
 
 	if ( $display_conference_flag == true ) {
-		// Game on. We should produce a button. Now find the right href value.
+		// Game on. We should produce either a button or some text.
 
 		$button = '<a class="btn btn-gold btn-conference" href="';
 
+		// URL setting from individual project. Overrides setting applied at the group level.
 		$project_url = get_field( '_furiproject_conference_url', $projectID );
+
+		// Symposium group details.
+		// If there is more than one selected, just use the first value in the array.
 		$groups = get_the_terms( $projectID, 'symposium_group' );
+		$display_option = get_field( 'symposiumgroup_display_options', $groups[0]);
 
 		if ( ! empty( $project_url ) ) {
 			// Use the included project URL as the href.
 			$button .= $project_url;
-		} elseif ( ! empty( $groups ) ) {
-			// Use the URL from the associated symposium group.
-			$group_url = get_field( 'symposiumgroup_conference_URL', $groups[0] );
-			$button .= $group_url;
-		} else {
-			// There should be a URL but there's not one indicated. Prevent an HTTP error
-			$button = '';
+			$button .= '" target="_blank">Join the session<span class="fas fa-external-link-alt"></span></a>';
+			return $button;
 		}
+
+		if ( empty( $groups ) ) {
+			// No group selected, don't display anything.
+			return;
+		} else {
+			// Which kind of information are we displaying?
+			if ('button' == $display_option) {
+
+				$display_url = esc_url(get_field( 'symposiumgroup_button_url', $groups[0]));
+				$display_label = esc_html(get_field( 'symposiumgroup_button_label', $groups[0]));
+				$display_external = get_field( 'symposiumgroup_button_external', $groups[0]);
+				if ($display_external) {
+					$icon = '<span class="fas fa-external-link-alt"></span>';
+				} else {
+					$icon = '';
+				}
+
+				$button .= $display_url . '" target="_blank">'. $display_label . $icon . '</a>';
+				return $button;
+			} else {
+				// ('text' == $display_option)
+				$display_message = get_field('symposiumgroup_text', $groups[0]);
+				return $display_message;
+			}
+		}
+	} else {
+		// Display conference flag was false.
+		return;
 	}
-
-	if ( ! empty( $button ) ) {
-		$button .= '" target="_blank">Join the session<span class="fas fa-external-link-alt"></span></a>';
-	}
-
-	return $button;
-
 }
 
 /**
