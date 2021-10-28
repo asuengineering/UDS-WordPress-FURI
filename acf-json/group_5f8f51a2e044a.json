@@ -26,7 +26,7 @@
             "label": "Display conference links?",
             "name": "furi_symposium_conference_display",
             "type": "true_false",
-            "instructions": "Checking this box will display links to Zoom or another virtual meeting space within all project pages that are a part of this symposium date. You can include this information in each project using the provided field.",
+            "instructions": "Checking this box will display the information associated with the assigned symposium group within all project pages that are a part of this symposium date. You can include this information in each project using the provided field.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -77,5 +77,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1614980038
+    "modified": 1635456278
 }
