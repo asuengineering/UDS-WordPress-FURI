@@ -10,12 +10,6 @@ jQuery(document).ready(function ($) {
     // Add tooltips to all pages if there's one present.
     $('[data-toggle="tooltip"]').tooltip();
 
-    // Hard coding a button into the CTA button area of the main menu.
-    $menubutton = '<form class="navbar-site-buttons form-inline">';
-    $menubutton += '<a href="/symposium" class="btn btn-md btn-maroon">';
-    $menubutton += 'Symposium</a></form>';
-    $('#menubar .navbar-nav').after($menubutton);
-
     // Simple countup feature for the pre-footer area.
     $('.counter').each(function () {
         var $this = $(this),
