@@ -237,6 +237,11 @@ get_header();
 							<?php echo get_all_project_tax_terms( $filterargs, 'symposium_group', 'symposium group' ); ?>
 						</form>
 
+						<form class="form-inline">
+							<!-- <label for="filter-symposium_group">Symposium Group</label> -->
+							<?php echo get_all_participant_tax_terms( $participant_ids, 'participant_details', 'student demographic' ); ?>
+						</form>
+
 						<button id="filter-reset" class="btn btn-dark btn-sm" type="reset" value="reset">
 							<span class="fas fa-undo" title="Reset filters"></span>Reset
 						</button>

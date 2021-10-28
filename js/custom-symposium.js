@@ -62,6 +62,7 @@ jQuery(document).ready(function ($) {
         $('#filter-degree_program').selectpicker($singleOptions);
         $('#filter-faculty_mentor').selectpicker($singleOptions);
         $('#filter-symposium_group').selectpicker($singleOptions);
+        $('#filter-participant_details').selectpicker($singleOptions);
 
         var $grid = $('#symposium-grid').isotope({
             // options
