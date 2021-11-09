@@ -109,6 +109,44 @@
     .cited-degree-program {
         text-transform: lowercase;
     }
+
+    .featured-mentor-post {
+
+        display: grid;
+        grid-template-columns: 3rem 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: $uds-size-spacing-4;
+        grid-row-gap: $uds-size-spacing-2;
+        padding: $uds-size-spacing-3;
+
+        svg {
+            color: $uds-color-base-gold;
+            width: 3rem;
+            height: auto;
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        p.excerpt {
+            font-size:1.25rem;
+            font-weight:700;
+
+            grid-column: 2;
+            grid-row: 1;
+
+            // Remove the excerpt "read more" link. Freehand a button instead.
+            a {
+                display:none;
+            }
+        }
+
+        .read-more {
+            grid-column: 2;
+            grid-row: 2;
+            display:inline-block;
+            text-align:right;
+        }
+    }
 }
 
 /*--------------------------------------------------------------

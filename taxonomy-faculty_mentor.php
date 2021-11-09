@@ -271,7 +271,6 @@ $demos = get_isearch_data($term);
 			$mentor_excerpt = '';	
 			if ( !empty ($mentorpost)) {
 				$mentor_excerpt = apply_filters( 'the_excerpt', $mentorpost->post_excerpt );
-				do_action( 'qm/debug', $mentorpost);
 				echo '<div class="post-teaser-box">';
 				echo '<h3>Featured Mentor Q&amp;A</h3>';
 				echo '<p class="lead"> ' . wp_kses_post( $mentor_excerpt ) .'</p>';

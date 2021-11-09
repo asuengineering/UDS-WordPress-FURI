@@ -89,8 +89,16 @@ if ( $mentors ) {
             $mentorpost = get_field( '_mentor_featured_post', $mentor );
             
             if ( !empty ($mentorpost)) {
-                echo apply_filters( 'the_excerpt', $mentorpost->post_excerpt );
+                do_action( 'qm/debug', $mentorpost);
+                echo '<div class="featured-mentor-post">';
+                echo '<span class="fas fa-stars"></span>';
+                $mentorpost_excerpt = apply_filters( 'the_excerpt', $mentorpost->post_excerpt );
+                $mentorpost_readmore = '<a href="' . esc_url(get_permalink($mentorpost->ID)) . '" class="read-more btn btn-maroon">Read more</a>';
+                echo '<p class="excerpt">' . $mentorpost_excerpt . '</p><p class="read-more">' . $mentorpost_readmore . '</p>';
+                echo '</div>';
             }
+
+            
 
         }
 

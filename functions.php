@@ -9,6 +9,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+add_action( 'wp_enqueue_scripts', 'uds_wordpress_child_dequeue', 100 );
+/**
+ * Dequeue theme assets with a very late priority.
+ */
+function uds_wordpress_child_dequeue() {
+	wp_dequeue_script( 'uds-wordpress-fa-scripts');
+}
+
 add_action( 'wp_enqueue_scripts', 'uds_wordpress_child_scripts' );
 /**
  * Enqueue theme assets.
@@ -25,9 +33,10 @@ function uds_wordpress_child_scripts() {
 	wp_enqueue_script( 'uds-wordpress-child-script', get_stylesheet_directory_uri() . '/js/child-theme.js', array( 'jquery' ), $js_child_version );
 	
 	// Load Font Awesome 5, from our kit.
-	wp_dequeue_script( 'uds-wordpress-fa-scripts' );
-	wp_enqueue_script( 'uds-furi-fontawesome-pro', 'https://kit.fontawesome.com/3fdebab6fc.js', array(), null, true );
+	wp_enqueue_script( 'uds-furi-fontawesome-pro', 'https://kit.fontawesome.com/3fdebab6fc.js', array(), null, false );
 }
+
+
 
 /**
  * Enqueue scripts and styles.
