@@ -5,6 +5,11 @@
  * @package uds-wordpress-theme
  */
 
+// Add to calendar link class
+require get_stylesheet_directory() . '/vendor/autoload.php';
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
+
 get_header();
 
 while ( have_posts() ) :
@@ -86,6 +91,19 @@ while ( have_posts() ) :
 				<h3 class="participant-major">
 					<?php echo esc_html( wp_strip_all_tags( get_the_term_list( $post->ID, 'degree_program', '', ', ', '' ) ) ); ?>
 				</h3>
+
+				<?php
+				$permalink = get_the_permalink();
+				$data = str_replace('http://furi.test/', 'https://furi.engineering.asu.edu/', $permalink);
+				$rand = rand(1,3);
+				if ( $rand == 3) {
+					$data = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+				}
+
+				// quick and simple:
+				// echo '<h4>' . $data . '</h4>';
+				echo '<img src="'.(new QRCode)->render($data).'" alt="QR Code" />';
+				?>
 
 				<p class="hometown">
 					<strong>Hometown: </strong>
