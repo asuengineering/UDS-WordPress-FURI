@@ -64,6 +64,27 @@
             }
         }
     }
+
+    .uds-modal-container {
+        width:auto;
+        max-width:800px;
+        height: auto;
+
+        .qr-code-wrap {
+
+            h3 {
+                padding-top: $uds-size-spacing-2;
+            }
+
+            img {
+                max-width: 300px;
+                height:auto;
+                float:left;
+                margin-right: $uds-size-spacing-3;
+            }
+        }
+    }
+
 }
 
 @include media-breakpoint-down($md) {

@@ -3,6 +3,10 @@
  * Single Furi Participant
  *
  * @package uds-wordpress-theme
+ * 
+ * 
+ * 
+ * 
  */
 
 // Add to calendar link class
@@ -77,6 +81,17 @@ while ( have_posts() ) :
 	}
 	?>
 
+<!-- <div class="container-fluid">
+	<button id="openModalButton" class="btn btn-dark">Show modal</button>
+    <div id="uds-modal" class="uds-modal">
+        <div class="uds-modal-container">
+			<button id="closeModalButton" class="uds-modal-close-btn">
+				<i class="fas fa-times fa-stack-1x"></i><span class="sr-only">Close</span></button>
+            <h1>Content</h1>
+        </div>
+    </div>
+</div> -->
+
 <!-- Markup for the page -->
 <div class="wrapper" id="page-wrapper">
 
@@ -91,19 +106,6 @@ while ( have_posts() ) :
 				<h3 class="participant-major">
 					<?php echo esc_html( wp_strip_all_tags( get_the_term_list( $post->ID, 'degree_program', '', ', ', '' ) ) ); ?>
 				</h3>
-
-				<?php
-				$permalink = get_the_permalink();
-				$data = str_replace('http://furi.test/', 'https://furi.engineering.asu.edu/', $permalink);
-				$rand = rand(1,3);
-				if ( $rand == 3) {
-					$data = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-				}
-
-				// quick and simple:
-				// echo '<h4>' . $data . '</h4>';
-				echo '<img src="'.(new QRCode)->render($data).'" alt="QR Code" />';
-				?>
 
 				<p class="hometown">
 					<strong>Hometown: </strong>
@@ -188,17 +190,58 @@ while ( have_posts() ) :
 
 						<div class="cta-buttons">
 							<?php
-								// The conference session button.
-								echo wp_kses_post( get_symposium_status_url( $post->ID ) );
+							// The conference session button.
+							echo wp_kses_post( get_symposium_status_url( $post->ID ) );
 
-								// Is there an uploaded research poster?
-								$poster = get_field( '_furiproject_poster', $post->ID );
+							// Is there an uploaded research poster?
+							$poster = get_field( '_furiproject_poster', $post->ID );
+							
 							if ( ! empty( $poster ) ) {
 								$postermarkup = '<a class="btn btn-maroon btn-poster" href="' . esc_url( $poster['url'] );
 								$postermarkup .= '" target="_blank">View the poster<span class="fas fa-external-link-alt"></span></a>';
 								echo wp_kses_post( $postermarkup );
 							}
+							
 							?>
+							
+							<button class="openModalButton btn btn-maroon">Show QR code</button>
+							<div class="uds-modal">
+
+								<div class="uds-modal-container">
+									<button class="uds-modal-close-btn closeModalButton">
+										<i class="fas fa-times fa-stack-1x"></i>
+										<span class="sr-only">Close</span>
+									</button>
+									<?php
+
+										$options = new QROptions([
+											'version'      => 10,
+											'outputType'   => QRCode::OUTPUT_IMAGE_PNG,
+											'eccLevel'   => QRCode::ECC_L,
+											'scale'        => 4,
+											'imageBase64'  => true,
+										]);
+
+										// invoke a fresh QRCode instance
+										$qrcode = new QRCode($options);
+
+										// and dump the output
+										$permalink = get_the_permalink();
+										$data = str_replace('http://furi.test/', 'https://furi.engineering.asu.edu/', $permalink);
+										$data .= '?utm_source=qr-code&utm_medium=web&utm_id=qr-code-participant';
+										
+										// Output
+										?>
+										<div class="qr-code-wrap">
+											<img src="<?php echo esc_attr( $qrcode->render($data) ); ?>" alt="QR code for the current page."/>
+											<h3><span class="highlight-gold">Shout some awesome!<span></h3>
+											<p>Be sure to include this image on your poster for the symposium so others can connect with you afterward. Right click and "save as" to download a copy.</p>
+										</div>
+
+										<?php
+									?>
+								</div>
+							</div>
 						</div>
 
 						<?php
