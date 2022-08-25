@@ -66,9 +66,12 @@ function qr_code_modal_window() {
                     </div>
                 </div>
             </div>';
-
-    do_action('qm/debug', $modal);
     
-    return $modal;
+    if ( $qr_display ) {
+        return $modal;
+    } else {
+        return;
+    }
+    
 }
 

@@ -194,8 +194,7 @@ while ( have_posts() ) :
 								echo wp_kses_post( $postermarkup );
 							}
 							
-							// Insert QR Code Function here.
-							do_action('qm/debug', 'The call happens next.');
+							// insert the QR code modal button and modal window.
 							echo qr_code_modal_window();
 							?>
 
