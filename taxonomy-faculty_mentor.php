@@ -10,73 +10,126 @@ $term = get_queried_object();
 
 function get_isearch_data($term_id) {
 	
-	// Parse eID from full iSearch URL. Pattern for URL should be: https://isearch.asu.edu/profile/####
-	$mentor_isearch_url = get_field( '_mentor_isearch', $term_id );
-	$mentor_eid = substr(strrchr($mentor_isearch_url, "/"), 1);
-	$mentor_isearch_json = 'https://asudir-solr.asu.edu/asudir/directory/select?q=eid:' . $mentor_eid . '&wt=json';
+	// Parse results based on supplied email address.
+	// If the email address is blank, attempt to query for the address from the old ASU Solr feed. 
+	$mentor_email = get_field( '_mentor_email', $term_id );
 
-	$request = wp_safe_remote_get( $mentor_isearch_json );
+	if ( empty( $mentor_email )) {
+		// Let's dig for an email address associated with the eid from the Search URL.
+		// Pattern for old iSearch URL should be: https://isearch.asu.edu/profile/####
+		$mentor_isearch_url = get_field( '_mentor_isearch', $term_id );
+		$mentor_eid = substr(strrchr($mentor_isearch_url, "/"), 1);
+		$mentor_isearch_json = 'https://asudir-solr.asu.edu/asudir/directory/select?q=eid:' . $mentor_eid . '&wt=json';
 
-	// Error check for invalid JSON.
-	if ( is_wp_error( $request ) ) {
-		return false; // Bail early.
+		$solr_request = wp_safe_remote_get( $mentor_isearch_json );
+
+		// Error check for invalid JSON.
+		if ( is_wp_error( $solr_request ) ) {
+			return false; // Bail early.
+		}
+
+		$solr_body   = wp_remote_retrieve_body( $solr_request );
+		$solr_data   = json_decode( $solr_body );
+		$solr_output = array();
+		do_action('qm/debug', $mentor_isearch_url);
+
+		if ( ! empty( $solr_data ) ) {
+			// Check # of responses to see if the returned result actually has data.
+			if ( $solr_data->response->numFound) {
+				$solr_path = $solr_data->response->docs[0];
+				$solr_email = $solr_path->emailAddress;
+			} else {
+				// The call was successful, but there's no data.
+			}
+		} else {
+			// The call was successful, but $solr_data was empty.
+		}
+
+		// If after all of that, we've obtained an email address, update the ACF field with it.
+		update_field( '_mentor_email', $solr_email, $term_id );
 	}
 
-	$body = wp_remote_retrieve_body( $request );
-	$data   = json_decode( $body );
-	$output = array();
+	// Go ahead and get the field again. There's a good chance it was updated just now.
+	$mentor_email = get_field( '_mentor_email', $term_id );
+	if (! empty( $mentor_email )) {
+		// Parse the identifier from the email address, use it as the search term.
+		$search_term = strstr($mentor_email, "@", true);
+		$search_json = 'https://search.asu.edu/api/v1/webdir-profiles/faculty-staff?query=' . $search_term . '&size=1';
+		// do_action('qm/debug', $search_json);
+		
+		$search_request = wp_safe_remote_get( $search_json );
+		
+		// Error check for invalid JSON.
+		if ( is_wp_error( $search_request ) ) {
+			return false; // Bail early.
+		}
 
-	if ( ! empty( $data ) ) {
+		$search_body   = wp_remote_retrieve_body( $search_request );
+		$search_data   = json_decode( $search_body );
+		$search_output = array();
 
-		// Check # of responses to see if the returned result actually has data.
-		if ( $data->response->numFound) {
+		if ( ! empty( $search_data ) ) {
+			$path = $search_data->results[0];
+			// do_action('qm/debug', $path);
 
-			$path = $data->response->docs[0];
+			$output['title'] = $path->primary_title->raw[0];
+			$output['school'] = $path->primary_department->raw;
+			$output['photo'] = $path->photo_url->raw;
+			$output['bio'] = wp_kses_post($path->bio->raw);
+			$output['expertise_areas'] = $path->expertise_areas->raw;
+			$output['email_address'] = $path->email_address->raw;
+			$output['research_website'] = $path->research_website->raw;
+			$output['facebook'] = $path->facebook->raw;
+			$output['twitter'] = $path->twitter->raw;
+			$output['linkedin'] = $path->linkedin->raw;
+			$output['eid'] = $path->eid->raw;
+			$output['deptid'] = $path->primary_deptid->raw;
+			$output['department'] = $path->primary_department->raw;
 
-			$output['title'] = $path->primaryTitle;
-			$output['school'] = $path->primaryiSearchDepartmentAffiliation;
-			$output['photo'] = $path->photoUrl;
-			$output['photoPref'] = $path->photoPreference;
-			$output['shortBio'] = $path->shortBio;
-			$output['bio'] = $path->bio;
-			$output['email'] = $path->emailAddress;
-			$output['website'] = $path->website;
-			$output['facebook'] = $path->facebook;
-			$output['twitter'] = $path->twitter;
-			$output['linkedin'] = $path->linkedin;
-			$output['experts'] = $path->expertsAsu;
-			$output['isearch'] = $mentor_isearch_url;
-
-			// Build link to affiliated school based on what we know.
-			$dept = $path->primaryDeptid;
+			// Get link to affiliated school based on recorded department ID.
+			// We can pre-determine the department IDs for common results and look up the rest.
+			$dept = $path->primary_deptid->raw;
 			$dept_links = array(
-				'Sch Biological & Hlth Sys Engr' => 'https://sbhse.engineering.asu.edu',
-				'Sch Sustain Engr & Built Envrn' => 'https://ssebe.engineering.asu.edu',
-				'Sch Engr Matter Trnsprt Energy' => 'https://semte.engineering.asu.edu',
-				'Sch Elect Comptr & Energy Engr' => 'https://ecee.engineering.asu.edu',
-				'Sch Compt & Augmented Intellig' => 'https://scai.engineering.asu.edu',
-				// 'Polytechnic Sch GIT Prgrms' => 'https://poly.engineering.asu.edu',
-				// 'Sch Biological & Hlth Sys Engr' => 'https://msn.engineering.asu.edu',
-				// 'Sch Biological & Hlth Sys Engr' => 'https://cidse.engineering.asu.edu',
+				'1659' => 'https://sbhse.engineering.asu.edu',
+				'1660' => 'https://ssebe.engineering.asu.edu',
+				'1662' => 'https://semte.engineering.asu.edu',
+				'1405' => 'https://ecee.engineering.asu.edu',
+				'1661' => 'https://scai.engineering.asu.edu',
+				'35480' => 'https://poly.engineering.asu.edu',
+
+				// Poly has multiple subdepartments, each should also link back to the main site.
+				'35488' => 'https://poly.engineering.asu.edu',
+				'35489' => 'https://poly.engineering.asu.edu',
+				'35490' => 'https://poly.engineering.asu.edu',
+				'35491' => 'https://poly.engineering.asu.edu',
+				'35492' => 'https://poly.engineering.asu.edu',
+				'35493' => 'https://poly.engineering.asu.edu',
+				'35494' => 'https://poly.engineering.asu.edu',
+				'35495' => 'https://poly.engineering.asu.edu',
+				'35496' => 'https://poly.engineering.asu.edu',
+				'35497' => 'https://poly.engineering.asu.edu',
+				'35498' => 'https://poly.engineering.asu.edu',
+				'35499' => 'https://poly.engineering.asu.edu',
+				'35558' => 'https://poly.engineering.asu.edu',
+				'35559' => 'https://poly.engineering.asu.edu',
+				'35560' => 'https://poly.engineering.asu.edu',
+
+				// 'currently null' => 'https://msn.engineering.asu.edu',
+				// 'defaults back to SCAI' => 'https://cidse.engineering.asu.edu',
 			);
 
 			if (array_key_exists( $dept, $dept_links)) {
 				// The department ID from $data has a hardcoded URL in the array above.
 				$output['deptURL'] = $dept_links[$dept];
-			} elseif ('POLY' === $path->primaryJobCampus ) {
-				// There are multiple programs out at Poly, but they should all link back to the main site.
-				$output['deptURL'] = 'https://poly.engineering.asu.edu';
 			} else {
-				// Not found. Just leave it blank.
+				// Not found. Eventually we can include the code to look it up from the API.
+				// https://search.asu.edu/api/v1/webdir-departments
 			}
 
-		} else {
-			// The call was successful, but there's no data.
 		}
-	} else {
-		// The call was successful, but $data was empty.
 	}
 
+	// do_action('qm/debug', $output);
 	return $output;
 }
 
@@ -95,18 +148,11 @@ $demos = get_isearch_data($term);
 
 			// Check if iSearch has an image for us and if it's available for display.
 			do_action( 'qm/debug', $demos);
-			if ( (! empty( $demos['photo'])) && ( 'none' !== $demos['photoPref']) ) {
+			if (! empty( $demos['photo'])) {
 
 				$portrait = '<img class="isearch-image img-fluid" src="' . $demos['photo'] . '" alt="Portrait of ' . get_queried_object()->term_name . '"/>';
 				$portrait = '<div class="col-md-3">' . $portrait . '</div>';
 
-				// // iSearch Photo may contain a URL but the image my not be on public display. Respect this setting.
-				// if ( 'none' !== $demos['photoPref']) {
-				// 	$portrait = '<img class="isearch-image img-fluid" src="' . $demos['photo'] . '" alt="Portrait of ' . get_queried_object()->term_name . '"/>';
-				// 	$portrait = '<div class="col-md-3">' . $portrait . '</div>';
-				// } else {
-				// 	// There's a URL present but the display preference is set to "none."
-				// }
 			}
 
 			// There's been a photo uploaded. Overwrite the variable and use it instead.
@@ -166,8 +212,8 @@ $demos = get_isearch_data($term);
 			echo wp_kses_post($bio);
 
 			// div.infobar: Social media icons, email address and isearch button.
-			$isearch_btn = '<a class="isearch btn btn-md btn-gray" href="' . $demos['isearch'] . '" target="_blank">iSearch</a>';
-			$email_btn = '<a class="email btn btn-md btn-gray" href="mailto:' . $demos['email'] . '" target=_blank><span class="fas fa-envelope"></span>Email</a>';
+			$isearch_btn = '<a class="isearch btn btn-md btn-gray" href="https://search.asu.edu/profile/' . $demos['eid'] . '" target="_blank">ASU Search</a>';
+			$email_btn = '<a class="email btn btn-md btn-gray" href="mailto:' . $demos['email_address'] . '" target=_blank><span class="fas fa-envelope"></span>Email</a>';
 			$socialbar = '';
 
 			if ( ! empty( trim($demos['twitter'] ) ) ) {
@@ -182,8 +228,8 @@ $demos = get_isearch_data($term);
 				$socialbar .= '<li><a href="' . $demos['facebook'] . '" target=_blank><span class="fab fa-facebook"></span></a></li>';
 			}
 
-			if ( ! empty( trim($demos['website'] ) ) ) {
-				$socialbar .= '<li><a href="' . $demos['website'] . '" target=_blank><span class="fas fa-globe"></span></a></li>';
+			if ( ! empty( trim($demos['research_website'] ) ) ) {
+				$socialbar .= '<li><a href="' . $demos['research_website'] . '" target=_blank><span class="fas fa-globe"></span></a></li>';
 			}
 
 			if ( ! empty( $socialbar ) ) {
