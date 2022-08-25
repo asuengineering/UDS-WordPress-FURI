@@ -85,10 +85,37 @@
         },
         {
             "key": "field_5f88d56f02649",
-            "label": "iSearch",
+            "label": "iSearch (Legacy)",
             "name": "_mentor_isearch",
             "type": "url",
             "instructions": "All demographic data for faculty members is sourced from iSearch. Returned data includes a profile image, current school affiliation, a small bio and social\/web links.",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6307e44d777f4",
+                        "operator": "!=empty"
+                    },
+                    {
+                        "field": "field_6307e44d777f4",
+                        "operator": "==empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_6307e44d777f4",
+            "label": "Email address",
+            "name": "_mentor_email",
+            "type": "email",
+            "instructions": "All demographic data for faculty members is sourced from ASU Search which returns results based on an email address. Returned data includes a profile image, current school affiliation, a small bio and social\/web links.",
             "required": 1,
             "conditional_logic": 0,
             "wrapper": {
@@ -97,7 +124,9 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": ""
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_605cf3c1b5710",
@@ -316,5 +345,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1635963328
+    "show_in_rest": 0,
+    "modified": 1661462540
 }
