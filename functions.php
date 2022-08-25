@@ -97,6 +97,7 @@ add_action( 'wp_enqueue_scripts', 'furi_child_theme_enqueue_styles' );
 require get_stylesheet_directory() . '/inc/custom-post-types.php';
 require get_stylesheet_directory() . '/inc/posts-to-posts.php';
 require get_stylesheet_directory() . '/inc/acf-register.php';
+require get_stylesheet_directory() . '/inc/options-qrcode.php';
 require get_stylesheet_directory() . '/inc/data-helpers.php';
 require get_stylesheet_directory() . '/inc/gravity-forms.php';
 

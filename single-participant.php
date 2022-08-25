@@ -4,15 +4,7 @@
  *
  * @package uds-wordpress-theme
  * 
- * 
- * 
- * 
  */
-
-// Add to calendar link class
-require get_stylesheet_directory() . '/vendor/autoload.php';
-use chillerlan\QRCode\QRCode;
-use chillerlan\QRCode\QROptions;
 
 get_header();
 
@@ -202,46 +194,11 @@ while ( have_posts() ) :
 								echo wp_kses_post( $postermarkup );
 							}
 							
+							// Insert QR Code Function here.
+							do_action('qm/debug', 'The call happens next.');
+							echo qr_code_modal_window();
 							?>
-							
-							<button class="openModalButton btn btn-maroon">Show QR code</button>
-							<div class="uds-modal">
 
-								<div class="uds-modal-container">
-									<button class="uds-modal-close-btn closeModalButton">
-										<i class="fas fa-times fa-stack-1x"></i>
-										<span class="sr-only">Close</span>
-									</button>
-									<?php
-
-										$options = new QROptions([
-											'version'      => 10,
-											'outputType'   => QRCode::OUTPUT_IMAGE_PNG,
-											'eccLevel'   => QRCode::ECC_L,
-											'scale'        => 4,
-											'imageBase64'  => true,
-										]);
-
-										// invoke a fresh QRCode instance
-										$qrcode = new QRCode($options);
-
-										// and dump the output
-										$permalink = get_the_permalink();
-										$data = str_replace('http://furi.test/', 'https://furi.engineering.asu.edu/', $permalink);
-										$data .= '?utm_source=qr-code&utm_medium=web&utm_id=qr-code-participant';
-										
-										// Output
-										?>
-										<div class="qr-code-wrap">
-											<img src="<?php echo esc_attr( $qrcode->render($data) ); ?>" alt="QR code for the current page."/>
-											<h3><span class="highlight-gold">Shout some awesome!<span></h3>
-											<p>Be sure to include this image on your poster for the symposium so others can connect with you afterward. Right click and "save as" to download a copy.</p>
-										</div>
-
-										<?php
-									?>
-								</div>
-							</div>
 						</div>
 
 						<?php
