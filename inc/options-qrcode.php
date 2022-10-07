@@ -38,7 +38,7 @@ function qr_code_modal_window() {
 
     $options = new QROptions([
         'version'      => 10,
-        'outputType'   => QRCode::OUTPUT_IMAGE_PNG,
+        'outputType'   => QRCode::OUTPUT_IMAGE_JPG,
         'eccLevel'   => QRCode::ECC_L,
         'scale'        => $qr_size,
         'imageBase64'  => true,
