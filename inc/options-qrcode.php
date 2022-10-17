@@ -37,7 +37,7 @@ function qr_code_modal_window() {
     $qr_tracking    = get_field('qr_options_utm_tracking', 'option');
 
     $options = new QROptions([
-        'version'      => 10,
+        'version'      => QRCode::VERSION_AUTO,
         'outputType'   => QRCode::OUTPUT_IMAGE_JPG,
         'eccLevel'   => QRCode::ECC_L,
         'scale'        => $qr_size,
